@@ -1,20 +1,20 @@
-{
-	"1": {
+[
+	 {
 		"name": "Question 1",
 		"answers": ["A1","A2","A3","A4"]
 	},
-	"2": {
+	 {
 		"name": "Question 2",
 		"answers": ["A1","A2","A3","A4"]
 	},
 
-	"3": {
+	 {
 		"name": "Question 3",
 		"answers": ["A1","A2","A3","A4"]
 	},
 	
-	"4": {
+	{
 		"name": "Question 4",
 		"answers": ["A1","A2","A3","A4"]
 	}
-}
+]
