@@ -5,7 +5,7 @@ var fs = require('fs');
 /* GET home page. */
 
 router.get('/', function (req, res) {
-	fs.readFile("/data/questions.json", "utf8", function(error, text) {
+	fs.readFile("data/questions.json", "utf8", function(error, text) {
   		if (error)
     		throw error;
 
