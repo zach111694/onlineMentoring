@@ -1,0 +1,16 @@
+<%
+<form>
+<input type="text" name="Name: ">
+<% for(q in questionsData){ %>
+	<label>
+		<%= questionsData[q].name %>
+	</label>
+	<br>
+  <% for(a in questionsData[q].answers){ %>
+    <input type="radio">
+    <%= questionsData[q].answers[a] %>
+  <% }%>
+  <br>
+<% }%>
+</form>
+%>
