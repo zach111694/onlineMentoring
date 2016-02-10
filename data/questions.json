@@ -1,20 +1,20 @@
 [
 	 {
-		"name": "Question 1",
-		"answers": ["A1","A2","A3","A4"]
+		"name": "What's your major?",
+		"answers": ["CSC","MAT","BUS","MUS"]
 	},
 	 {
-		"name": "Question 2",
-		"answers": ["A1","A2","A3","A4"]
+		"name": "What's your favorite sport?",
+		"answers": ["Basketball","Baseball","Football","Boxing"]
 	},
 
 	 {
-		"name": "Question 3",
-		"answers": ["A1","A2","A3","A4"]
+		"name": "What's your favorite video game?",
+		"answers": ["Hearthstone","LoL","Skyrim","WoW"]
 	},
 	
 	{
-		"name": "Question 4",
-		"answers": ["A1","A2","A3","A4"]
+		"name": "What's your favorite food?",
+		"answers": ["Italian","Japanese","Chinese","Thai"]
 	}
 ]
