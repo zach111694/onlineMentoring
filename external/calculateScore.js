@@ -1,3 +1,8 @@
+//calculate compatibility score
+"use strict";
+
+
+//testing
 
 var questionsObj = {
 	Q1: {val:2},
@@ -14,7 +19,13 @@ var stu = {
     Q2: "B"
 };
 
-
+/**
+ * Returns compatibility score of mentor and mentee
+ *@param {Object} mentor
+ *@param {Object} student
+ *@param {Object} questions
+ *@returns {number}
+**/
 
 
 function calcScore(mentor,student,questions){
