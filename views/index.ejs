@@ -7,13 +7,13 @@
   <body>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
-    <form>
+    <form id="form">
       <%= "Name:" %>
       <br>
       <input type="text" name="name">
       <br>
-      <select name = "dropDown">
-        <option value="Mentor">Mentor</option>
+      <select id="dropDown">
+        <option value="Mentor" selected>Mentor</option>
         <option value="Mentee">Mentee</option>
       </select>
       <br>
@@ -25,7 +25,6 @@
         <% for(a in questionsData[q].answers){ %>
           <%if(q == 0){%>
           <input type="radio" name = "Q1" value=<%= questionsData[q].answers[a] %>>
-          <% %>
           <%= questionsData[q].answers[a] %>
           <%} %>
           <%if(q == 1){%>
@@ -52,43 +51,62 @@
   var question2Buttons = document.getElementsByName("Q2");
   var question3Buttons = document.getElementsByName("Q3");
   var question4Buttons = document.getElementsByName("Q4");
-  var dropDownMenu = document.getElementsByName("dropDown");
+  var dropDownMenu = document.getElementById("dropDown");
   var submitButton = document.getElementById("submit");
 
+  var name;
+  var role;
   var userAnswers = new Array(4);
 
   for (var i = 0; i < question1Buttons.length; i++){
-    question1Buttons[i].addEventListener("change", getButtonData);
+    question1Buttons[i].addEventListener("change", getQ1Answer);
   }
   
   for (var i = 0; i < question2Buttons.length; i++){
-    question2Buttons[i].addEventListener("change", getButtonData);
+    question2Buttons[i].addEventListener("change", getQ2Answer);
   }
 
   for (var i = 0; i < question3Buttons.length; i++){
-    question3Buttons[i].addEventListener("change", getButtonData);
+    question3Buttons[i].addEventListener("change", getQ3Answer);
   }
   
   for (var i = 0; i < question4Buttons.length; i++){
-    question4Buttons[i].addEventListener("change", getButtonData);
+    question4Buttons[i].addEventListener("change", getQ4Answer);
   }
-  
-  submit.addEventListener("onclick", submitForm);
-  // dropDownMenu.addEventListener("onclick", submitForm);
+  dropDownMenu[0].addEventListener("onchange", dropDownSelection);
+  dropDownMenu[1].addEventListener("onchange", dropDownSelection);
+//  submitButton.addEventListener("onsubmit", submitForm);
 
-
-  function getButtonData(event) 
+  function getQ1Answer(event) 
   {
-    console.log(event.target.value);
+    userAnswers[0] = event.target.value;
+    console.log(userAnswers[0]);
   }
+  function getQ2Answer(event) 
+  {
+    userAnswers[1] = event.target.value;
+    console.log(userAnswers[1]);
+  }
+  function getQ3Answer(event) 
+  {
+    userAnswers[2] = event.target.value;
+    console.log(userAnswers[2]);
+  }
+  function getQ4Answer(event) 
+  {
+    userAnswers[3] = event.target.value;
+    console.log(userAnswers[3]);
+  }
+ 
+  function dropDownSelection(event) 
+  {
+    role =  dropDownMenu.options[dropDownMenu.selectedIndex].value;
+    console.log(role);
+  }
+
   function submitForm(event) 
   {
     console.log(event.target.value);
-  }  
-  // function dropDownSelection(event) 
-  // {
-  //   console.log(event.target.value);
-  // }
-
+  } 
 </script>
 </html>
