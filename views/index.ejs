@@ -43,7 +43,7 @@
         <br>
         <% }%>
         <br>
-        <input id = "submit" type="submit" value = "Submit">
+        <input id="submit" type="submit" value = "Submit">
     </form>
   </body>
 <script>
@@ -73,9 +73,9 @@
   for (var i = 0; i < question4Buttons.length; i++){
     question4Buttons[i].addEventListener("change", getQ4Answer);
   }
-  dropDownMenu[0].addEventListener("onchange", dropDownSelection);
-  dropDownMenu[1].addEventListener("onchange", dropDownSelection);
-//  submitButton.addEventListener("onsubmit", submitForm);
+  dropDownMenu[0].addEventListener("click", dropDownSelection);
+  dropDownMenu[1].addEventListener("click", dropDownSelection);
+  submitButton.addEventListener("click", submitForm);
 
   function getQ1Answer(event) 
   {
@@ -100,13 +100,17 @@
  
   function dropDownSelection(event) 
   {
-    role =  dropDownMenu.options[dropDownMenu.selectedIndex].value;
+    role =  event.target.value;
     console.log(role);
   }
 
   function submitForm(event) 
   {
-    console.log(event.target.value);
+    var c = confirm("Are you sure these are your answers?");
+    if(c == true){
+      //insert statement goes in here
+    }
+
   } 
 </script>
 </html>
