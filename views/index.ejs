@@ -7,12 +7,12 @@
   <body>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
-    <form id="form">
-      <%= "Name:" %>
+    <form id="form" action="/" method="post" onsubmit="return validateForm();">
+      <%= "Username:" %>
       <br>
-      <input type="text" name="name">
+      <input type="text" id="username" name="username" oninput="getUsername()">
       <br>
-      <select id="dropDown">
+      <select name="role" id="dropDown">
         <option value="Mentor" selected>Mentor</option>
         <option value="Mentee">Mentee</option>
       </select>
@@ -47,6 +47,7 @@
     </form>
   </body>
 <script>
+
   var question1Buttons = document.getElementsByName("Q1");
   var question2Buttons = document.getElementsByName("Q2");
   var question3Buttons = document.getElementsByName("Q3");
@@ -54,9 +55,7 @@
   var dropDownMenu = document.getElementById("dropDown");
   var submitButton = document.getElementById("submit");
 
-  var name;
-  var role;
-  var userAnswers = new Array(4);
+  var userAnswers = [,"Mentor",,,,];
 
   for (var i = 0; i < question1Buttons.length; i++){
     question1Buttons[i].addEventListener("change", getQ1Answer);
@@ -73,44 +72,62 @@
   for (var i = 0; i < question4Buttons.length; i++){
     question4Buttons[i].addEventListener("change", getQ4Answer);
   }
+
   dropDownMenu[0].addEventListener("click", dropDownSelection);
   dropDownMenu[1].addEventListener("click", dropDownSelection);
-  submitButton.addEventListener("click", submitForm);
+
+  function getUsername(){
+    var username = document.getElementById('username').value;
+    userAnswers[0] = username;
+    console.log(username);
+  }
 
   function getQ1Answer(event) 
-  {
-    userAnswers[0] = event.target.value;
-    console.log(userAnswers[0]);
-  }
-  function getQ2Answer(event) 
-  {
-    userAnswers[1] = event.target.value;
-    console.log(userAnswers[1]);
-  }
-  function getQ3Answer(event) 
   {
     userAnswers[2] = event.target.value;
     console.log(userAnswers[2]);
   }
-  function getQ4Answer(event) 
+  function getQ2Answer(event) 
   {
     userAnswers[3] = event.target.value;
     console.log(userAnswers[3]);
   }
- 
+  function getQ3Answer(event) 
+  {
+    userAnswers[4] = event.target.value;
+    console.log(userAnswers[4]);
+  }
+  function getQ4Answer(event) 
+  {
+    userAnswers[5] = event.target.value;
+    console.log(userAnswers[5]);
+  }
+  
   function dropDownSelection(event) 
   {
-    role =  event.target.value;
+    var role = event.target.value;
+    userAnswers[1] = role;
     console.log(role);
   }
 
-  function submitForm(event) 
-  {
-    var c = confirm("Are you sure these are your answers?");
-    if(c == true){
-      //insert statement goes in here
+  function hasWhiteSpace(s) {
+  return s.indexOf(' ') >= 0;
+}
+  function validateForm(){
+    for(var i = 0; i < userAnswers.length; i++){
+      console.log(userAnswers[i]);
+      if(userAnswers[i] == null || userAnswers[i].length < 1 || hasWhiteSpace(userAnswers[i])){
+        alert("Whoah there! You did not answer all the questions");
+        return false;
+      } 
     }
+    
+    if(confirm("Are you sure these are your answers?")){
+      return true;
+    } else {
+      return false;
+    }
+  }
 
-  } 
 </script>
 </html>
