@@ -5,6 +5,7 @@ var db = new sqlite3.Database('onlineMentoring.db');
 // 
 // 
 module.exports = {
+	dataBase: db,
 	
 	doQuery: function (cb) {
 		db.serialize(function(){
@@ -18,6 +19,18 @@ module.exports = {
 			});
 		});
 	}
+
+	// registerUser: function(){
+	// 	db.serialize(function(){
+	// 		db.run("INSERT INTO Mentors (`username`,`0`,`1`,`2`,`3`) VALUES ($username, $q1,$q2,$q3,$q4)) VALUES ()", {
+	// 			$username: formData.username,
+	// 			$q1: formData.Q1,
+	// 			$q2: formData.Q2,
+	// 			$q3: formData.Q3,
+	// 			$q4: formData.Q4
+	// 		});
+	// 	});
+	// }
 }
 
 //doQuery
