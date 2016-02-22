@@ -10,7 +10,7 @@
     <p>Welcome to <%= title %></p>
     <form id="form" action="/" method="post" onsubmit="return validateForm();">
       <strong><p>Username:</p></strong>
-      <input type="text" id="username" name="username" oninput="getUsername()">
+      <input type="text" id="username" name="username">
       <br>
       <select name="role" id="dropDown">
         <option value="Mentor" selected>Mentor</option>
@@ -59,11 +59,11 @@
   var question2Buttons = document.getElementsByName("Q2");
   var question3Buttons = document.getElementsByName("Q3");
   var question4Buttons = document.getElementsByName("Q4");
+  var usernameInput = document.getElementById("username");
   var dropDownMenu = document.getElementById("dropDown");
   var submitButton = document.getElementById("submit");
 
   var userAnswers = [,"Mentor",,,,];
-
   for (var i = 0; i < question1Buttons.length; i++){
     question1Buttons[i].addEventListener("change", getQ1Answer);
   }
@@ -79,16 +79,19 @@
   for (var i = 0; i < question4Buttons.length; i++){
     question4Buttons[i].addEventListener("change", getQ4Answer);
   }
+  usernameInput.addEventListener("change", usernameInput);
+  dropDownMenu.addEventListener("change", dropDownSelection);
 
-  dropDownMenu[0].addEventListener("click", dropDownSelection);
-  dropDownMenu[1].addEventListener("click", dropDownSelection);
-
-  function getUsername(){
-    var username = document.getElementById('username').value;
-    userAnswers[0] = username;
-    console.log(username);
+  function getUsername(event)
+  {
+    userAnswers[0] = event.target.value;
+    console.log(userAnswers[0]);
   }
-
+  function dropDownSelection(event) 
+  {
+    userAnswers[1] = event.target.value;
+    console.log(userAnswers[1]);
+  }
   function getQ1Answer(event) 
   {
     userAnswers[2] = event.target.value;
@@ -109,17 +112,11 @@
     userAnswers[5] = event.target.value;
     console.log(userAnswers[5]);
   }
-  
-  function dropDownSelection(event) 
-  {
-    var role = event.target.value;
-    userAnswers[1] = role;
-    console.log(role);
-  }
 
-  function hasWhiteSpace(s) {
-  return s.indexOf(' ') >= 0;
-}
+  function hasWhiteSpace(s) 
+  {
+    return s.indexOf(' ') >= 0;
+  }
   function validateForm(){
     for(var i = 0; i < userAnswers.length; i++){
       console.log(userAnswers[i]);
