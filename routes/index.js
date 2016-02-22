@@ -23,23 +23,13 @@ router.get('/', function (req, res) {
 router.post('/', function(req, res) {
 
 	var formData = req.body; 
+
 	if(formData.role == 'Mentor'){
-		omDB.dataBase.run("INSERT INTO Mentors (`username`,`0`,`1`,`2`,`3`) VALUES ($username, $q1,$q2,$q3,$q4)",{
-				$username: formData.username,
-				$q1: formData.Q1,
-				$q2: formData.Q2,
-				$q3: formData.Q3,
-				$q4: formData.Q4
-		});
+		omDB.registerMentor(formData);
 	} else if(formData.role == 'Mentee'){
-		omDB.dataBase.run("INSERT INTO Mentees (`username`,`0`,`1`,`2`,`3`) VALUES ($username, $q1,$q2,$q3,$q4)",{
-				$username: formData.username,
-				$q1: formData.Q1,
-				$q2: formData.Q2,
-				$q3: formData.Q3,
-				$q4: formData.Q4
-		});
+		omDB.registerMentee(formData);
 	}
+
 	console.log(formData);
 
 	
