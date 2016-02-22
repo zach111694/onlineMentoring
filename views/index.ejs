@@ -10,7 +10,7 @@
     <form id="form">
       <%= "Name:" %>
       <br>
-      <input type="text" name="name">
+      <input type="text" id="name">
       <br>
       <select id="dropDown">
         <option value="Mentor" selected>Mentor</option>
@@ -51,11 +51,12 @@
   var question2Buttons = document.getElementsByName("Q2");
   var question3Buttons = document.getElementsByName("Q3");
   var question4Buttons = document.getElementsByName("Q4");
+  var nameTextInput = document.getElementById("name");
   var dropDownMenu = document.getElementById("dropDown");
   var submitButton = document.getElementById("submit");
 
   var name;
-  var role;
+  var role = dropDownMenu.options[dropDownMenu.selectedIndex].value;
   var userAnswers = new Array(4);
 
   for (var i = 0; i < question1Buttons.length; i++){
@@ -73,8 +74,8 @@
   for (var i = 0; i < question4Buttons.length; i++){
     question4Buttons[i].addEventListener("change", getQ4Answer);
   }
-  dropDownMenu[0].addEventListener("click", dropDownSelection);
-  dropDownMenu[1].addEventListener("click", dropDownSelection);
+  nameTextInput.addEventListener("change", nameInput);
+  dropDownMenu.addEventListener("change", dropDownSelection);
   submitButton.addEventListener("click", submitForm);
 
   function getQ1Answer(event) 
@@ -96,6 +97,12 @@
   {
     userAnswers[3] = event.target.value;
     console.log(userAnswers[3]);
+  }
+
+  function nameInput(event) 
+  {
+    name = event.target.value;
+    console.log(name);
   }
  
   function dropDownSelection(event) 
