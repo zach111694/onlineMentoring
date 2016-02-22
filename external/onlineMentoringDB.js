@@ -20,8 +20,8 @@ module.exports = {
 	}
 }
 
-
-// doQuery(function(err, data) {
+//doQuery
+// (function(err, data) {
 // 	console.log(data);
 // });
 
