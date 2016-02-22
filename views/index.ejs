@@ -10,7 +10,7 @@
     <p>Welcome to <%= title %></p>
     <form id="form" action="/" method="post" onsubmit="return validateForm();">
       <strong><p>Username:</p></strong>
-      <input type="text" id="username" name="username">
+      <input type="text" id="username" name="username" oninput="getUsername();">
       <br>
       <select name="role" id="dropDown">
         <option value="Mentor" selected>Mentor</option>
@@ -41,17 +41,12 @@
           <%} %>
         <% }%>
         <br>
-        <% }%>
+        <%   }%>
         <br>
         <input id="submit" type="submit" value = "Submit">
     </form>
   </div>
   </body>
-
-
-
-
-
 
 <script>
 
@@ -59,7 +54,6 @@
   var question2Buttons = document.getElementsByName("Q2");
   var question3Buttons = document.getElementsByName("Q3");
   var question4Buttons = document.getElementsByName("Q4");
-  var usernameInput = document.getElementById("username");
   var dropDownMenu = document.getElementById("dropDown");
   var submitButton = document.getElementById("submit");
 
@@ -79,12 +73,13 @@
   for (var i = 0; i < question4Buttons.length; i++){
     question4Buttons[i].addEventListener("change", getQ4Answer);
   }
-  usernameInput.addEventListener("change", usernameInput);
+  //usernameInput.addEventListener("change", usernameInput);
   dropDownMenu.addEventListener("change", dropDownSelection);
 
   function getUsername(event)
   {
-    userAnswers[0] = event.target.value;
+    var usernameInput = document.getElementById('username').value;
+    userAnswers[0] = usernameInput;
     console.log(userAnswers[0]);
   }
   function dropDownSelection(event) 
