@@ -5,11 +5,11 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
+    <div align="center">
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
     <form id="form" action="/" method="post" onsubmit="return validateForm();">
-      <%= "Username:" %>
-      <br>
+      <strong><p>Username:</p></strong>
       <input type="text" id="username" name="username" oninput="getUsername()">
       <br>
       <select name="role" id="dropDown">
@@ -19,7 +19,7 @@
       <br>
         <% for(q in questionsData){ %>
         <br><label>
-          <%= questionsData[q].name %>
+          <strong><%= questionsData[q].name %></strong>
         </label>
         <br>
         <% for(a in questionsData[q].answers){ %>
@@ -45,7 +45,14 @@
         <br>
         <input id="submit" type="submit" value = "Submit">
     </form>
+  </div>
   </body>
+
+
+
+
+
+
 <script>
 
   var question1Buttons = document.getElementsByName("Q1");
