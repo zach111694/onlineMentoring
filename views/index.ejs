@@ -5,21 +5,21 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
+    <div align="center">
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
-    <form id="form">
-      <%= "Name:" %>
+    <form id="form" action="/" method="post" onsubmit="return validateForm();">
+      <strong><p>Username:</p></strong>
+      <input type="text" id="username" name="username">
       <br>
-      <input type="text" id="name">
-      <br>
-      <select id="dropDown">
+      <select name="role" id="dropDown">
         <option value="Mentor" selected>Mentor</option>
         <option value="Mentee">Mentee</option>
       </select>
       <br>
         <% for(q in questionsData){ %>
         <br><label>
-          <%= questionsData[q].name %>
+          <strong><%= questionsData[q].name %></strong>
         </label>
         <br>
         <% for(a in questionsData[q].answers){ %>
@@ -45,20 +45,25 @@
         <br>
         <input id="submit" type="submit" value = "Submit">
     </form>
+  </div>
   </body>
+
+
+
+
+
+
 <script>
+
   var question1Buttons = document.getElementsByName("Q1");
   var question2Buttons = document.getElementsByName("Q2");
   var question3Buttons = document.getElementsByName("Q3");
   var question4Buttons = document.getElementsByName("Q4");
-  var nameTextInput = document.getElementById("name");
+  var usernameInput = document.getElementById("username");
   var dropDownMenu = document.getElementById("dropDown");
   var submitButton = document.getElementById("submit");
 
-  var name;
-  var role = dropDownMenu.options[dropDownMenu.selectedIndex].value;
-  var userAnswers = new Array(4);
-
+  var userAnswers = [,"Mentor",,,,];
   for (var i = 0; i < question1Buttons.length; i++){
     question1Buttons[i].addEventListener("change", getQ1Answer);
   }
@@ -74,50 +79,59 @@
   for (var i = 0; i < question4Buttons.length; i++){
     question4Buttons[i].addEventListener("change", getQ4Answer);
   }
-  nameTextInput.addEventListener("change", nameInput);
+  usernameInput.addEventListener("change", usernameInput);
   dropDownMenu.addEventListener("change", dropDownSelection);
-  submitButton.addEventListener("click", submitForm);
 
-  function getQ1Answer(event) 
+  function getUsername(event)
   {
     userAnswers[0] = event.target.value;
     console.log(userAnswers[0]);
   }
-  function getQ2Answer(event) 
+  function dropDownSelection(event) 
   {
     userAnswers[1] = event.target.value;
     console.log(userAnswers[1]);
   }
-  function getQ3Answer(event) 
+  function getQ1Answer(event) 
   {
     userAnswers[2] = event.target.value;
     console.log(userAnswers[2]);
   }
-  function getQ4Answer(event) 
+  function getQ2Answer(event) 
   {
     userAnswers[3] = event.target.value;
     console.log(userAnswers[3]);
   }
-
-  function nameInput(event) 
+  function getQ3Answer(event) 
   {
-    name = event.target.value;
-    console.log(name);
+    userAnswers[4] = event.target.value;
+    console.log(userAnswers[4]);
   }
- 
-  function dropDownSelection(event) 
+  function getQ4Answer(event) 
   {
-    role =  event.target.value;
-    console.log(role);
+    userAnswers[5] = event.target.value;
+    console.log(userAnswers[5]);
   }
 
-  function submitForm(event) 
+  function hasWhiteSpace(s) 
   {
-    var c = confirm("Are you sure these are your answers?");
-    if(c == true){
-      //insert statement goes in here
+    return s.indexOf(' ') >= 0;
+  }
+  function validateForm(){
+    for(var i = 0; i < userAnswers.length; i++){
+      console.log(userAnswers[i]);
+      if(userAnswers[i] == null || userAnswers[i].length < 1 || hasWhiteSpace(userAnswers[i])){
+        alert("Whoah there! You did not answer all the questions");
+        return false;
+      } 
     }
+    
+    if(confirm("Are you sure these are your answers?")){
+      return true;
+    } else {
+      return false;
+    }
+  }
 
-  } 
 </script>
 </html>
