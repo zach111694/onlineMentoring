@@ -2,10 +2,12 @@ var MaxAlgorithm = module.exports = {};
 
 MaxAlgorithm.maxFunction = function(mens,ss){
 	d={};
-	function maxSatisfaction(mens,ss,d){
+	function maxSatisfaction(mens,ss){
     	var maxScoreSoFar = 0;
     	if (mens.length === 0|| ss.length === 0 ){
-    			d[mens]={};
+    			if (! ([mens] in d)){
+                    d[mens] = {};
+                }
     			d[mens][ss]={};
     			d[mens][ss].score=0;
     			d[mens][ss].choices=[];
@@ -26,7 +28,7 @@ MaxAlgorithm.maxFunction = function(mens,ss){
     					    }
     					    d[mens][ss]={};
     						d[mens][ss].score = maxScoreSoFar;
-    						var choice = new Object();
+    						var choice = {};
     						choice.men = mens[men];
     						choice.s = ss[s];
     						choiceOfNextLvl = d[copyOfMensAfterSelection][copyOfSsAfterSelection].choices;
@@ -40,8 +42,9 @@ MaxAlgorithm.maxFunction = function(mens,ss){
 	maxSatisfaction(mens,ss,d);
 	console.log(d[mens][ss].choices);
 }
-//test code
-/*function getScore(m,s){
+
+/*test code
+function getScore(m,s){
 	if(m === "a"){
 		if(s ==="d"){
 			return 3;
