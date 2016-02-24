@@ -10,9 +10,6 @@ router.get('/', function (req, res) {
 	fs.readFile("data/questions.json", "utf8", function(error, text) {
   		if (error)
     		throw error;
-    	omDB.doQuery(function(err,result){
-    		console.log(result);
-    	});
 
     	var questionsData = JSON.parse(text);
 
@@ -23,13 +20,17 @@ router.get('/', function (req, res) {
 router.post('/', function(req, res) {
 
 	var formData = req.body; 
+	var role = "";
 
 	if(formData.role == 'Mentor'){
-		omDB.registerMentor(formData);
+		role = "Mentors";
+		// omDB.registerMentor(formData);
 	} else if(formData.role == 'Mentee'){
-		omDB.registerMentee(formData);
+		role = "Mentees";
+		// omDB.registerMentee(formData);
 	}
 
+	omDB.registerUser(formData,role);
 	console.log(formData);
 
 	
