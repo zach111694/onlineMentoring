@@ -1,8 +1,35 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color:pink;
 }
 
 a {
   color: #00B7FF;
+}
+
+#form{
+	border: solid black 2px;
+	width:50%;
+	border-radius: 1em;
+	background-color:lightgray;
+}
+
+#dropDown{
+	margin:2%;
+}
+
+#submit{
+	width:25%;
+	margin:2%;
+	padding:2%;
+	border:solid black 2px;
+	border-radius:1em;
+	background-color:red;
+	font-weight: bold;
+	font-size:1em;
+}
+
+.radioButton{
+	margin:1%;
 }
