@@ -8,6 +8,8 @@
     <div align="center">
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
+
+
     <form id="form" action="/" method="post" onsubmit="return validateForm();">
       <strong><p>Username:</p></strong>
       <input type="text" id="username" name="username" oninput="getUsername();">
@@ -24,19 +26,19 @@
         <br>
         <% for(a in questionsData[q].answers){ %>
           <%if(q == 0){%>
-          <input type="radio" name = "Q1" value=<%= questionsData[q].answers[a] %>>
+          <input type="radio" name = "Q1" class = "radioButton" value=<%= questionsData[q].answers[a] %>>
           <%= questionsData[q].answers[a] %>
           <%} %>
           <%if(q == 1){%>
-          <input type="radio" name = "Q2" value=<%= questionsData[q].answers[a] %>>
+          <input type="radio" name = "Q2" class = "radioButton" value=<%= questionsData[q].answers[a] %>>
           <%= questionsData[q].answers[a] %>
           <%} %>
           <%if(q == 2){%>
-          <input type="radio" name = "Q3" value=<%= questionsData[q].answers[a] %>> 
+          <input type="radio" name = "Q3" class="radioButton" value=<%= questionsData[q].answers[a] %>> 
           <%= questionsData[q].answers[a] %>
           <%} %>
           <%if(q == 3){%>
-          <input type="radio" name = "Q4" value=<%= questionsData[q].answers[a] %>>
+          <input type="radio" name = "Q4" class="radioButton" value=<%= questionsData[q].answers[a] %>>
           <%= questionsData[q].answers[a] %>
           <%} %>
         <% }%>

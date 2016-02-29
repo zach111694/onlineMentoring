@@ -1,0 +1,22 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color:pink;
+  text-align: center;
+}
+
+
+input{
+	margin:2%;
+	padding:2%;
+	font-size: 2em;
+	border:1px solid black;
+}
+
+#titleWrap{
+	margin:auto;
+	border: solid black 2px;
+	width:50%;
+	border-radius: 1em;
+	background-color:white;
+}
