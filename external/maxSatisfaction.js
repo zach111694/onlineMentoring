@@ -2,6 +2,14 @@ var MaxAlgorithm = module.exports = {};
 
 MaxAlgorithm.maxFunction = function(mens,ss){
 	d={};
+    var a = [];
+    var b= [];
+    for (var i=0;i<mens.length;i++){
+        a.push(mens[i]);
+    };
+    for(var j=0;j<ss.length;j++){
+        b.push(ss[j]);
+    };
 	function maxSatisfaction(mens,ss){
     	var maxScoreSoFar = 0;
     	if (mens.length === 0|| ss.length === 0 ){
@@ -39,8 +47,8 @@ MaxAlgorithm.maxFunction = function(mens,ss){
     	    }
 	    }
 	}
-	maxSatisfaction(mens,ss,d);
-	console.log(d[mens][ss].choices);
+	maxSatisfaction(a,b);
+	console.log(d[a][b].choices);
 }
 
 /*test code
