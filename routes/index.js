@@ -12,7 +12,9 @@ router.get('/', function (req, res) {
     		throw error;
 
     	var questionsData = JSON.parse(text);
-
+    	omDB.doQuery(function(err,res){
+    		console.log(res);
+    	});
     	res.render('index', {title: 'Mentoring', questionsData: questionsData});
 	});
 });
@@ -44,6 +46,10 @@ router.post('/', function(req, res) {
 	// 
 
 	return res.send(req.body);
+});
+
+router.get('/pair',function(req,res){
+	res.render('pair',{title:'Pair'});
 });
 
 

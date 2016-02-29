@@ -1,5 +1,5 @@
-var mentors =  [];// object for holding all of the potential mentors 
-var mentees = [];//object for holding all of the students
+var mentors =  {};// object for holding all of the potential mentors 
+var mentees = {};//object for holding all of the students
 
 // steve is using arrays to hold data 
 
