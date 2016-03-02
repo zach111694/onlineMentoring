@@ -1,7 +1,18 @@
 var MaxAlgorithm = module.exports = {};
 
-MaxAlgorithm.maxFunction = function(mentors,mentees){
+MaxAlgorithm.maxFunction = function(mentorsObj,menteesObj){
     d={};
+    mentors = Object.keys(mentorsObj);
+    mentees = Object.keys(menteesObj);
+    function calcScore(mentor,mentee){
+        var score = 0;
+        for (var key in mentorsObj[mentor]){
+            if (mentorsObj[mentor][key] === menteesObj[mentee][key]){
+                score++;
+            }
+        }
+        return score;
+    }
     function maxSatisfaction(mentors,mentees){
         var maxScoreSoFar = 0;
         if (mentors.length === 0|| mentees.length === 0 ){
@@ -21,7 +32,7 @@ MaxAlgorithm.maxFunction = function(mentors,mentees){
                         maxSatisfaction(copyOfMentorsAfterSelection,copyOfMenteesAfterSelection,d);
                     }
                     var score = calcScore(mentors[mentor],mentees[mentee]) + d[copyOfMentorsAfterSelection][copyOfMenteesAfterSelection].score;
-                    if (score > maxScoreSoFar){
+                    if (score >= maxScoreSoFar){
                         maxScoreSoFar = score;
                         if (! (mentors in d)){
                             d[mentors] = {};
@@ -44,29 +55,19 @@ MaxAlgorithm.maxFunction = function(mentors,mentees){
 };
 
 /*test code
-function calcScore(m,s){
-    if(m === "a"){
-        if(s ==="d"){
-            return 3;
-        }else if(s==="e"){
-            return 5;
-        }else{return 4;}
-    }else if(m ==="b"){
-        if(s ==="d"){
-            return 2;
-        }else if(s==="e"){
-            return 4;
-        }else{return 6;}
-    }else{if(s ==="d"){
-            return 1;
-        }else if(s==="e"){
-            return 2;
-        }else{return 3;}
-    }
-}
-d={};
-function s(mentors,mentees){
+function s(mentorsObj,menteesObj){
     d={};
+    mentors = Object.keys(mentorsObj);
+    mentees = Object.keys(menteesObj);
+    function calcScore(mentor,mentee){
+        var score = 0;
+        for (var key in mentorsObj[mentor]){
+            if (mentorsObj[mentor][key] === menteesObj[mentee][key]){
+                score++;
+            }
+        }
+        return score;
+    }
     function maxSatisfaction(mentors,mentees){
         var maxScoreSoFar = 0;
         if (mentors.length === 0|| mentees.length === 0 ){
@@ -86,7 +87,7 @@ function s(mentors,mentees){
                         maxSatisfaction(copyOfMentorsAfterSelection,copyOfMenteesAfterSelection,d);
                     }
                     var score = calcScore(mentors[mentor],mentees[mentee]) + d[copyOfMentorsAfterSelection][copyOfMenteesAfterSelection].score;
-                    if (score > maxScoreSoFar){
+                    if (score >= maxScoreSoFar){
                         maxScoreSoFar = score;
                         if (! (mentors in d)){
                             d[mentors] = {};
@@ -106,7 +107,16 @@ function s(mentors,mentees){
     }
     maxSatisfaction(mentors,mentees);
     console.log(d[mentors][mentees].choices);
-    console.log(d)
+    console.log(d[mentors][mentees].score)
 };
-s(["a","b","c"],["d","e","f"]);
+var mentors = { zyuzon: { q1: 'CSC', q2: 'Boxing', q3: 'Hearthstone', q4: 'Thai' },
+  cosias: { q1: 'MAT', q2: 'Basketball', q3: 'Skyrim', q4: 'Japanese' },
+  jschanker: { q1: 'CSC', q2: 'Baseball', q3: 'WoW', q4: 'Italian' },
+  testUser: { q1: 'MAT', q2: 'Football', q3: 'Skyrim', q4: 'Chinese' } };
+
+var mentees = { hstarkie: { q1: 'BUS', q2: 'Football', q3: 'WoW', q4: 'Italian' },
+  rhuang: { q1: 'MUS', q2: 'Baseball', q3: 'LoL', q4: 'Chinese' },
+  ramato: { q1: 'MAT', q2: 'Baseball', q3: 'LoL', q4: 'Japanese' },
+  mschultz: { q1: 'MAT', q2: 'Football', q3: 'Hearthstone', q4: 'Japanese' } };
+s(mentors,mentees);
 */
