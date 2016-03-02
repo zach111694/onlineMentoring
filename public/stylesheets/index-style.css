@@ -2,34 +2,20 @@ body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background-color:pink;
+  text-align: center;
 }
 
-a {
-  color: #00B7FF;
+
+input{
+	margin:2%;
+	padding:2%;
+	font-size: 2em;
 }
 
-#form{
+#titleWrap{
+	margin:auto;
 	border: solid black 2px;
 	width:50%;
 	border-radius: 1em;
-	background-color:lightgray;
-}
-
-#dropDown{
-	margin:2%;
-}
-
-#submit{
-	width:25%;
-	margin:2%;
-	padding:2%;
-	border:solid black 2px;
-	border-radius:1em;
-	background-color:red;
-	font-weight: bold;
-	font-size:1em;
-}
-
-.radioButton{
-	margin:1%;
+	background-color:white;
 }

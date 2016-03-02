@@ -7,6 +7,11 @@ var omDB = require('../external/onlineMentoringDB');
 /* GET home page. */
 
 router.get('/', function (req, res) {
+    res.render('index', {title: 'Online Mentoring'});
+
+});
+
+router.get('/questionnaire',function (req, res) {
 	fs.readFile("data/questions.json", "utf8", function(error, text) {
   		if (error)
     		throw error;
@@ -15,11 +20,11 @@ router.get('/', function (req, res) {
     	omDB.doQuery(function(err,res){
     		console.log(res);
     	});
-    	res.render('index', {title: 'Mentoring', questionsData: questionsData});
+    	res.render('questionnaire', {title: 'Online Mentoring', questionsData: questionsData});
 	});
 });
 
-router.post('/', function(req, res) {
+router.post('/questionnaire', function(req, res) {
 
 	var formData = req.body; 
 	var role = "";
@@ -45,7 +50,23 @@ router.post('/', function(req, res) {
 	// 
 	// 
 
-	return res.send(req.body);
+	// return res.send(req.body);
+	res.redirect('/pair');
+});
+
+router.get('/profile',function(req,res){
+	res.render('profile');
+});
+
+router.get('/pair',function(req,res){
+	res.render('pair',{title:'Pair'});
+});
+router.get('/signup',function(req,res){
+	res.render('signup',{title:'Signup'});
+});
+
+router.get('/login',function(req,res){
+	res.render('login',{title:'Login'});
 });
 
 router.get('/pair',function(req,res){
