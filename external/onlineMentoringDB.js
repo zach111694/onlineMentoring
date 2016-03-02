@@ -4,12 +4,15 @@ var db = new sqlite3.Database('onlineMentoring.db');
 // CHANGE DIRECTORY TO /external AND TYPE 'node OnlineMentoringDB.js' to test functions below.
 // 
 //
+
+
+
 module.exports = {
 
-	doQuery: function (cb) {
+	doQuery: function (cb,role) {
 		db.serialize(function(){
 
-			db.all("SELECT * FROM Mentors", function(err,row){
+			db.all("SELECT * FROM "+ role, function(err,row){
 				if(err){
 					return cb(err);
 				}
