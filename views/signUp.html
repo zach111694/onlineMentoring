@@ -12,20 +12,48 @@
 
 		
 			<!--sign up button-->
-			<input id="signUpButton" type="button" value="Sign Up">
+			<input type="button" value="Sign Up" id="signUpButton" >
 			<!--sign in button-->
-			<input id="signInButton" type="button" value="Sign In">
+			<input type="button" value="Sign In" id="signInButton">
+
+
+			<div id="signUp/In"></div>
 
 		</div>
 	</body>
+	<script src="generateForm"></script>
 	<script>
-		var signUp = document.getElementById('signUpButton');
-		var signIn = document.getElementById('signInButton');
 
-		signUp.addEventListener('click',function({
-			
-		}))
-	</script>
+
+		function createForm(){
+
+			var f = document.createElement('form');
+			f.setAttribute('method','post');
+
+			var u = document.createElement('input');
+			u.setAttribute('type','text');
+			u.setAttribute('name','userName');
+
+			var p = document.createElement('input');
+			p.setAttribute('type','text');
+			p.setAttribute('name','password');
+
+			f.appendChild(u);
+			f.appendChild(p);
+
+			document.getElementById('signUp/In').appendChild(f);
+		}
+
+		var signUp = document.getElementById('signUpButton');
+		signUp.addEventListener('click',function(){
+			createForm();
+		})
+		var signIn = document.getElementById('signInButton');
+		signIn.addEventListener('click',function(){
+			createForm();
+		})
+
+	</script>	
 </html>
 
 
