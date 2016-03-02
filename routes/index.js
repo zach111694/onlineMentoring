@@ -7,6 +7,11 @@ var omDB = require('../external/onlineMentoringDB');
 /* GET home page. */
 
 router.get('/', function (req, res) {
+
+	omDB.doQuery(function(err,result){
+		console.log(result);
+	},"Mentors");
+
     res.render('index', {title: 'Online Mentoring'});
 
 });
