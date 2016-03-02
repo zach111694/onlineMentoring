@@ -1,36 +1,41 @@
-var mentors =  {};// object for holding all of the potential mentors 
-var mentees = {};//object for holding all of the students
-
+var omDB = require('../external/onlineMentoringDB');
+var usersObject = {};
 // steve is using arrays to hold data 
 
+omDB.doQuery(function(err,res){
+	for(var i = 0; i < res.length;i++){
+		var usrObj = res[i];
 
-function createObject(userName,role,answers)
-{
-	if(role.toLowerCase() === 'mentor')
+		createObject(usrObj);
+	}
+
+	console.log(usersObject);
+},"Mentees");
+
+function createObject(queryObject)
+{	
+
+	if(queryObject.role === 'Mentor')
 	{
-		mentors[userName] =
+		usersObject[queryObject.username] =
 		{
-			//UserName: userName,
-			Role: 'Mentor',
-			Answers: answers
-		};
-	} 
-
-
-
-	else if(role.toLowerCase() === 'mentee')
-	{
-		mentees[userName] =
-		{
-			//UserName: userName,
-			Role: 'Mentee',
-			Answers: answers
+			q1:queryObject.Q1,
+			q2:queryObject.Q2,
+			q3:queryObject.Q3,
+			q4:queryObject.Q4
 		};
 	}
-	
-	else
+
+	else if(queryObject.role === 'Mentee')
+
 	{
-	    console.log("You've listed an invalid position");
+		usersObject[queryObject.username] =
+		{
+			q1:queryObject.Q1,
+			q2:queryObject.Q2,
+			q3:queryObject.Q3,
+			q4:queryObject.Q4
+		};
 	}
 
 }//Takes in the properties of a potential mentor/student and creates an object that is placed in the respective positions object 
@@ -40,11 +45,11 @@ function createObject(userName,role,answers)
 
 
 //Testing of the function 
-createObject('carl','mentor','answer');
-createObject('zach','mentee','answer');
-createObject('steve','mentor','answer');
+// createObject('carl','mentor','answer');
+// createObject('zach','mentee','answer');
+// createObject('steve','mentor','answer');
 
-console.log('List of Mentors: ');
-console.log(mentors);
-console.log('List of Mentees: ');
-console.log(mentees);
+// console.log('List of Mentors: ');
+// console.log(mentors);
+// console.log('List of Mentees: ');
+// console.log(mentees);

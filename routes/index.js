@@ -9,7 +9,9 @@ var omDB = require('../external/onlineMentoringDB');
 router.get('/', function (req, res) {
 
 	omDB.doQuery(function(err,result){
+
 		console.log(result);
+
 	},"Mentors");
 
     res.render('index', {title: 'Online Mentoring'});
@@ -29,23 +31,21 @@ router.get('/questionnaire',function (req, res) {
 	});
 });
 
-router.post('/questionnaire', function(req, res) {
+
+router.post('/questionnaire',function(req, res) {
 
 	var formData = req.body; 
 	var role = "";
 
+
 	if(formData.role == 'Mentor'){
 		role = "Mentors";
-		// omDB.registerMentor(formData);
 	} else if(formData.role == 'Mentee'){
 		role = "Mentees";
-		// omDB.registerMentee(formData);
 	}
 
 	omDB.registerUser(formData,role);
-	console.log(formData);
 
-	
 	// if err <= VALIDATE THE FORM
 	// res.render index {asdasd asdasd asdas}
 	// else
@@ -55,8 +55,8 @@ router.post('/questionnaire', function(req, res) {
 	// 
 	// 
 
-	// return res.send(req.body);
-	res.redirect('/pair');
+	res.send(formData);
+	// res.redirect('/pair');
 });
 
 router.get('/profile',function(req,res){

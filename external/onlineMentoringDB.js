@@ -24,10 +24,11 @@ module.exports = {
 
 	registerUser: function(formData,role){
 		db.serialize(function(){
-			db.run("INSERT INTO " + role + " (`username`,`0`,`1`,`2`,`3`) VALUES ($username, $q1,$q2,$q3,$q4)", {
+			db.run("INSERT INTO " + role + " (`username`,`role`,`Q1`,`Q2`,`Q3`,`Q4`) VALUES ($username,$role,$q1,$q2,$q3,$q4)", {
 				$username: formData.username,
+				$role: formData.role,
 				$q1: formData.Q1,
-				$q2: formData.Q2,
+				$q2: formData.Q2,	
 				$q3: formData.Q3,
 				$q4: formData.Q4
 			});
