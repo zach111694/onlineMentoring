@@ -33,7 +33,29 @@ module.exports = {
 				$q4: formData.Q4
 			});
 		});
+	},
+
+	queryUsers: function(cb){
+		db.all("SELECT * FROM Users", function(err,rows){
+			if(err){
+				return cb(err);
+			}
+
+			cb(null,rows);
+		});
+	},
+
+	registerUser2: function(registerData){
+		db.run("INSERT INTO Users (`username`,`password`,`first_name`,`last_name`) VALUES ($username,$password,$first_name,$last_name)", {
+			$username: registerData.username,
+			$password: registerData.password,
+			$first_name: registerData.firstName,
+			$last_name: registerData.lastName
+		});
+		
 	}
+
+
 }
 
 //doQuery

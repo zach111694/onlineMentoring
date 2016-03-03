@@ -2,17 +2,26 @@ var express = require('express');
 var router = express.Router();
 var fs = require('fs');
 var omDB = require('../external/onlineMentoringDB');
-
-
-/* GET home page. */
+var bcrypt = require('bcryptjs');
 
 router.get('/', function (req, res) {
 
-	omDB.doQuery(function(err,result){
 
-		console.log(result);
+	//TEST REGISTER
+	var formData = {
+		username: 'bgates',
+		password: 'ihatestevejobs',
+		firstName: 'Bill',
+		lastName: 'Gates',
+	};
 
-	},"Mentors");
+	bcrypt.genSalt(10,function(err,salt){
+		bcrypt.hash(formData.password,salt,function(err,hash){
+			formData.password = hash;
+			omDB.registerUser2(formData);
+		});
+	});
+
 
     res.render('index', {title: 'Online Mentoring'});
 
@@ -56,11 +65,21 @@ router.post('/questionnaire',function(req, res) {
 	// 
 
 	res.send(formData);
-	// res.redirect('/pair');
+	// res.redirect('/profile');
 });
 
 router.get('/profile',function(req,res){
-	res.render('profile');
+
+	// TEST COMPARE OF PASSWORD AND HASH
+	
+	omDB.queryUsers(function(err,res){
+		bcrypt.compare('ihatestevejobs',res[0].password,function(err,result){
+			// RETURNS TRUE UPON MATCH OF PASSWORD AND MATCH
+			console.log(result);
+		});
+	});
+
+	res.render('profile',{title: 'Profile'});
 });
 
 router.get('/pair',function(req,res){
@@ -69,15 +88,11 @@ router.get('/pair',function(req,res){
 router.get('/signup',function(req,res){
 	res.render('signup',{title:'Signup'});
 });
-
 router.get('/login',function(req,res){
 	res.render('login',{title:'Login'});
 });
-
 router.get('/pair',function(req,res){
 	res.render('pair',{title:'Pair'});
 });
-
-
 
 module.exports = router;
