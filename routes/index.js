@@ -6,22 +6,14 @@ var bcrypt = require('bcryptjs');
 
 router.get('/', function (req, res) {
 
-
-	//TEST REGISTER
-	var formData = {
-		username: 'bgates',
-		password: 'ihatestevejobs',
-		firstName: 'Bill',
-		lastName: 'Gates',
-	};
-
-	bcrypt.genSalt(10,function(err,salt){
-		bcrypt.hash(formData.password,salt,function(err,hash){
-			formData.password = hash;
-			omDB.registerUser2(formData);
+	// TEST COMPARE OF PASSWORD AND HASH
+	
+	omDB.queryUsers(function(err,res){
+		bcrypt.compare('ihatestevejobs',res[0].password,function(err,result){
+			// RETURNS TRUE UPON MATCH OF PASSWORD AND MATCH
+			console.log(result);
 		});
 	});
-
 
     res.render('index', {title: 'Online Mentoring'});
 
@@ -69,15 +61,23 @@ router.post('/questionnaire',function(req, res) {
 });
 
 router.get('/profile',function(req,res){
-
-	// TEST COMPARE OF PASSWORD AND HASH
 	
-	omDB.queryUsers(function(err,res){
-		bcrypt.compare('ihatestevejobs',res[0].password,function(err,result){
-			// RETURNS TRUE UPON MATCH OF PASSWORD AND MATCH
-			console.log(result);
+	//TEST REGISTER
+	var formData = {
+		username: 'sjobs',
+		password: 'ihatebillgates',
+		firstName: 'Steve',
+		lastName: 'Jobs',
+	};
+
+
+	bcrypt.genSalt(10,function(err,salt){
+		bcrypt.hash(formData.password,salt,function(err,hash){
+			formData.password = hash;
+			omDB.registerUser2(formData);
 		});
 	});
+	
 
 	res.render('profile',{title: 'Profile'});
 });
