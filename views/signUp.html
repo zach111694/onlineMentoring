@@ -2,7 +2,10 @@
 <html>
 	<head>
 		<title>Login Page</title>
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 		<link rel='stylesheet' href='signUpStyle.css'/>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	</head>
 
 	<body>
@@ -11,17 +14,47 @@
 			<h1>Welcome to Online Mentoring!</h1>
 
 		
-			<!--sign up button-->
-			<input type="button" value="Sign Up" id="signUpButton" >
 			<!--sign in button-->
-			<input type="button" value="Sign In" id="signInButton">
+			<h2>Sign In</h2>
+			<form id='logInForm' >
+				<h3>Username:</h3><input type = "text" name="username"></br>
+				<h3>Password:</h3><input type = "password" name="password"></br>
+
+				<button id='logInBtn' type='button'>Log In</button>
+			</form>
 
 
-			<div id="signUp/In"></div>
+			<!--sign up button-->
+			<div id='accordion'>
+				
+					
+			
+						<h2 id='signUpLink'><a data-toggle='collapse' data-parent='#accordion' href='#collapse1'>
+							Sign Up
+							</a>
+						</h2>
+					
+					
+					<div id='collapse1' class='panel-collapse collapse out'>
 
+						<!--sign up form-->
+						<form id='signUpForm'>
+							<h3>First Name:</h3><input type='text' name='firstName'></br>
+							<h3>Last Name:</h3><input type='text' name='lastName'></br>
+							<h3>Username:</h3><input type ='text' name='username'></br>							
+							<h3>Password:</h3><input type='password' name='password'></br>
+
+							<div id='btnWrap'><button type='button'>Create Account</button></div>
+						</form>
+						
+					</div>
+				
+			</div>
 		</div>
+
+
+
 	</body>
-	<script src="generateForm"></script>
 	<script>
 
 
@@ -53,7 +86,8 @@
 			createForm();
 		})
 
-	</script>	
+	</script>
+	
 </html>
 
 
