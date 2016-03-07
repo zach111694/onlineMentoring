@@ -13,7 +13,7 @@ omDB.doQuery(function(err,res){
 },"Mentees");
 
 function createObject(queryObject)
-{	
+{
 
 	if(queryObject.role === 'Mentor')
 	{
