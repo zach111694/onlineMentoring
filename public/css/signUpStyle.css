@@ -58,8 +58,14 @@ button{
 	width:50%;
 }
 
-#logInBtn{
+.submitBtn{
 	margin-left:25%;
+	text-align: left;
+	margin-bottom:2%;
+	margin-top:3%;
+	padding:1%;
+	font-size: 2em;
+	font-weight: bold;
 }
 
 #signUpForm{

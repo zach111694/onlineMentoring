@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='stylesheets/index-style.css'/>
+    <title>Login Page</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel='stylesheet' href='css/signUpStyle.css'/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+      <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   </head>
 
   <body>
@@ -11,17 +14,47 @@
       <h1>Welcome to Online Mentoring!</h1>
 
     
-      <!--sign up button-->
-      <input type="button" value="Sign Up" id="signUpButton" >
       <!--sign in button-->
-      <input type="button" value="Sign In" id="signInButton">
+      <h2>Sign In</h2>
+      <form id='logInForm' action='/login' method='post'>
+        <h3>Username:</h3><input type = "text" name="username"></br>
+        <h3>Password:</h3><input type = "password" name="password"></br>
+
+        <input class='submitBtn' type='submit' value="Log In">
+      </form>
 
 
-      <div id="signUp/In"></div>
+      <!--sign up button-->
+      <div id='accordion'>
+        
+          
+      
+            <h2 id='signUpLink'><a data-toggle='collapse' data-parent='#accordion' href='#collapse1'>
+              Sign Up
+              </a>
+            </h2>
+          
+          
+          <div id='collapse1' class='panel-collapse collapse out'>
 
+            <!--sign up form-->
+            <form id='signUpForm' action='/profile' method='post'>
+              <h3>First Name:</h3><input type='text' name='firstName'></br>
+              <h3>Last Name:</h3><input type='text' name='lastName'></br>
+              <h3>Username:</h3><input type ='text' name='username'></br>             
+              <h3>Password:</h3><input type='password' name='password'></br>
+
+              <div id='btnWrap'><input class='submitBtn' type='submit' value='Create Account'></div>
+            </form>
+            
+          </div>
+        
+      </div>
     </div>
+
+
+
   </body>
-  <script src="generateForm"></script>
   <script>
 
 
@@ -53,8 +86,15 @@
       createForm();
     })
 
-  </script> 
+  </script>
+  
 </html>
+
+
+
+
+
+
 
 
 
