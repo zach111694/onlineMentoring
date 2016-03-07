@@ -15,7 +15,7 @@ userSchema.methods.generateHash = function(password){
 userSchema.methods.validPassword = function(password){
 	return bcrypt.compareSync(password,this.local.password);
 }
-
+ 
 <<<<<<< HEAD
 module.exports = db.model('User',userSchema);
 =======

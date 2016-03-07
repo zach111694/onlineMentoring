@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html>
   <head>
+<<<<<<< HEAD
     <title>Login Page</title>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel='stylesheet' href='css/signUpStyle.css'/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
       <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+=======
+    <title><%= title %></title>
+    <link rel='stylesheet' href='stylesheets/index-style.css'/>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+>>>>>>> 33b1a9aefc4d5f46bca3794401c81f7022aefbe0
   </head>
 
   <body>
-
     <div id='titleWrap'>
+<<<<<<< HEAD
       <h1>Welcome to Online Mentoring!</h1>
 
     
@@ -87,6 +95,47 @@
     })
 
   </script>
+=======
+      <h1>Welcome to <%= title %>!</h1>
+      
+      <!-- Log In Form -->
+      <form id='logInForm' action="/login" method="post">
+        <h3>Username: <input type = "text" name="username"></h3></br>
+        <h3>Password: <input type = "password" name="password"></h3></br>
+        
+        <input id="submitLogIn" type="submit" value="Log In">
+      
+      </form>
+
+      <!-- Show/Hide Sign Up Form -->
+      <div id='accordion'>
+
+        <h2 id='signUpLink'>
+          <a data-toggle='collapse' data-parent='#accordion' href='#collapse1'>Sign Up</a>
+        </h2>
+
+        <div id='collapse1' class='panel-collapse collapse out'>
+
+          <!-- Sign Up Form -->
+          <form id="signUpForm" action="/signup" method="post">
+
+            <h3>First Name: <input type='text' name='firstName'></h3>
+            <h3>Last Name: <input type='text' name='lastName'></h3>
+            <h3>Username: <input type ='text' name='username'></h3>           
+            <h3>Password: <input type='password' name='password'></h3>
+            <div id='btnWrap'>
+              <input id="submitRegister" type="submit" value="Create Account">
+            </div>
+            <br>
+
+          </form>
+            
+        </div>
+      </div>
+    </div>
+
+  </body>
+>>>>>>> 33b1a9aefc4d5f46bca3794401c81f7022aefbe0
   
 </html>
 
