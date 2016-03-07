@@ -3,57 +3,53 @@
   <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='stylesheets/index-style.css'/>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   </head>
 
   <body>
-
     <div id='titleWrap'>
-      <h1>Welcome to Online Mentoring!</h1>
+      <h1>Welcome to <%= title %>!</h1>
+      
+      <!-- Log In Form -->
+      <form id='logInForm' action="/login" method="post">
+        <h3>Username: <input type = "text" name="username"></h3></br>
+        <h3>Password: <input type = "password" name="password"></h3></br>
+        
+        <input id="submitLogIn" type="submit" value="Log In">
+      
+      </form>
 
-    
-      <!--sign up button-->
-      <input type="button" value="Sign Up" id="signUpButton" >
-      <!--sign in button-->
-      <input type="button" value="Sign In" id="signInButton">
+      <!-- Show/Hide Sign Up Form -->
+      <div id='accordion'>
 
+        <h2 id='signUpLink'>
+          <a data-toggle='collapse' data-parent='#accordion' href='#collapse1'>Sign Up</a>
+        </h2>
 
-      <div id="signUp/In"></div>
+        <div id='collapse1' class='panel-collapse collapse out'>
 
+          <!-- Sign Up Form -->
+          <form id="signUpForm" action="/signup" method="post">
+
+            <h3>First Name: <input type='text' name='firstName'></h3>
+            <h3>Last Name: <input type='text' name='lastName'></h3>
+            <h3>Username: <input type ='text' name='username'></h3>           
+            <h3>Password: <input type='password' name='password'></h3>
+            <div id='btnWrap'>
+              <input id="submitRegister" type="submit" value="Create Account">
+            </div>
+            <br>
+
+          </form>
+            
+        </div>
+      </div>
     </div>
+
   </body>
-  <script src="generateForm"></script>
-  <script>
-
-
-    function createForm(){
-
-      var f = document.createElement('form');
-      f.setAttribute('method','post');
-
-      var u = document.createElement('input');
-      u.setAttribute('type','text');
-      u.setAttribute('name','userName');
-
-      var p = document.createElement('input');
-      p.setAttribute('type','text');
-      p.setAttribute('name','password');
-
-      f.appendChild(u);
-      f.appendChild(p);
-
-      document.getElementById('signUp/In').appendChild(f);
-    }
-
-    var signUp = document.getElementById('signUpButton');
-    signUp.addEventListener('click',function(){
-      createForm();
-    })
-    var signIn = document.getElementById('signInButton');
-    signIn.addEventListener('click',function(){
-      createForm();
-    })
-
-  </script> 
+  
 </html>
 
 

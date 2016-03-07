@@ -82,15 +82,20 @@ router.get('/profile',function(req,res){
 	res.render('profile',{title: 'Profile'});
 });
 
+router.post('/signup',function(req,res){
+
+	res.send(req.body);
+
+});
+
+router.post('/login',function(req,res){
+	res.send(req.body);
+});
+
 router.get('/pair',function(req,res){
 	res.render('pair',{title:'Pair'});
 });
-router.get('/signup',function(req,res){
-	res.render('signup',{title:'Signup'});
-});
-router.get('/login',function(req,res){
-	res.render('login',{title:'Login'});
-});
+
 router.get('/pair',function(req,res){
 	res.render('pair',{title:'Pair'});
 });
