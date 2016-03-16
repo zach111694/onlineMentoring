@@ -1,13 +1,6 @@
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database('onlineMentoring.db');
 
-var express = require('express');
-// CHANGE DIRECTORY TO /external AND TYPE 'node OnlineMentoringDB.js' to test functions below.
-// 
-//
-
-
-
 module.exports = {
 
 	doQuery: function (cb,role) {

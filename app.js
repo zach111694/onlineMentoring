@@ -74,7 +74,7 @@ passport.serializeUser(function(user, done) {
 passport.deserializeUser(function(username, done) {
   db.get('SELECT username FROM users WHERE username = ?', username, function(err, row) {
     if (!row) return done(null, false);
-    console.log(row.username);
+    
     return done(null, row.username);
   });
 });

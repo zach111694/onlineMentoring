@@ -66,14 +66,9 @@ router.get('/logout', function(req,res){
 
 router.get('/profile',loggedIn,function(req,res){
 
-	
-
-	omDB.retrieveUserData(req.user,function(err,res){
-		console.log(res.first_name);
-
+	omDB.retrieveUserData(req.user,function(err,usrData){
+		res.render('profile',{title: 'Online Mentoring', user: usrData});
 	});
-
-	res.render('profile',{title: 'Online Mentoring', user: req.user});
 });
 
 
