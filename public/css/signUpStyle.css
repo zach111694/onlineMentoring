@@ -1,0 +1,94 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color:pink;
+  text-align: center;
+}
+
+
+
+input{
+	margin:1%;
+	text-align: left;
+	padding:1%;
+	font-size: 1em;
+	border:1px solid black;
+}
+
+h2{
+
+	text-align: left;
+	text-decoration: underline;
+	margin-left:3%;
+	font-size: 2em;
+}
+
+a{
+	color:black;
+	text-align: center;
+}
+
+a:hover{
+	color:blue;
+
+}
+
+h3{
+	text-align: left;
+	margin-left:3%;
+	display:inline-block;
+}
+
+form{
+	text-align:left;
+	margin:2%;
+	margin-top:0%;
+}
+
+button{
+	text-align: left;
+	margin-bottom:2%;
+	margin-top:3%;
+	padding:1%;
+	font-size: 2em;
+	font-weight: bold;
+}
+
+#logInForm{
+	width:50%;
+}
+
+.submitBtn{
+	margin-left:25%;
+	text-align: left;
+	margin-bottom:2%;
+	margin-top:3%;
+	padding:1%;
+	font-size: 2em;
+	font-weight: bold;
+}
+
+#signUpForm{
+	width:5 5%;
+	margin:auto;
+	border:dotted black 2px;
+	margin-bottom: 2%;
+	background-color:grey;
+}
+
+#signUpLink{
+	text-align: center;
+}
+
+
+#titleWrap{
+	margin:auto;
+	border: solid black 2px;
+	width:75%;
+	border-radius: 1em;
+	background-color:lightgrey;
+}
+
+#btnWrap{
+	text-align: center;
+}

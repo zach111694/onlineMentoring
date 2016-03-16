@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/questionnaire-style.css' />
+  </head>
+  <body>
+    <div align="center">
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+
+    <form id="form" action="/questionnaire" method="post" onsubmit="return validateForm();">
+      <strong><p>Username:</p></strong>
+      <input type="text" id="username" name="username" oninput="getUsername();">
+      <br>
+      <select name="role" id="dropDown">
+        <option value="Mentor" selected>Mentor</option>
+        <option value="Mentee">Mentee</option>
+      </select>
+      <br>
+        <% for(q in questionsData){ %>
+        <br><label>
+          <strong><%= questionsData[q].name %></strong>
+        </label>
+        <br>
+        <% for(a in questionsData[q].answers){ %>
+          <%if(q == 0){%>
+          <input type="radio" name = "Q1" class = "radioButton" value=<%= questionsData[q].answers[a] %>>
+          <%= questionsData[q].answers[a] %>
+          <%} %>
+          <%if(q == 1){%>
+          <input type="radio" name = "Q2" class = "radioButton" value=<%= questionsData[q].answers[a] %>>
+          <%= questionsData[q].answers[a] %>
+          <%} %>
+          <%if(q == 2){%>
+          <input type="radio" name = "Q3" class="radioButton" value=<%= questionsData[q].answers[a] %>> 
+          <%= questionsData[q].answers[a] %>
+          <%} %>
+          <%if(q == 3){%>
+          <input type="radio" name = "Q4" class="radioButton" value=<%= questionsData[q].answers[a] %>>
+          <%= questionsData[q].answers[a] %>
+          <%} %>
+        <% }%>
+        <br>
+        <%   }%>
+        <br>
+        <input id="submit" type="submit" value = "Submit">
+    </form>
+  </div>
+  </body>
+
+<script>
+
+  var question1Buttons = document.getElementsByName("Q1");
+  var question2Buttons = document.getElementsByName("Q2");
+  var question3Buttons = document.getElementsByName("Q3");
+  var question4Buttons = document.getElementsByName("Q4");
+  var dropDownMenu = document.getElementById("dropDown");
+  var submitButton = document.getElementById("submit");
+
+  var userAnswers = [,"Mentor",,,,];
+  for (var i = 0; i < question1Buttons.length; i++){
+    question1Buttons[i].addEventListener("change", getQ1Answer);
+  }
+  
+  for (var i = 0; i < question2Buttons.length; i++){
+    question2Buttons[i].addEventListener("change", getQ2Answer);
+  }
+
+  for (var i = 0; i < question3Buttons.length; i++){
+    question3Buttons[i].addEventListener("change", getQ3Answer);
+  }
+  
+  for (var i = 0; i < question4Buttons.length; i++){
+    question4Buttons[i].addEventListener("change", getQ4Answer);
+  }
+  //usernameInput.addEventListener("change", usernameInput);
+  dropDownMenu.addEventListener("change", dropDownSelection);
+
+  function getUsername(event)
+  {
+    var usernameInput = document.getElementById('username').value;
+    userAnswers[0] = usernameInput;
+    console.log(userAnswers[0]);
+  }
+  function dropDownSelection(event) 
+  {
+    userAnswers[1] = event.target.value;
+    console.log(userAnswers[1]);
+  }
+  function getQ1Answer(event) 
+  {
+    userAnswers[2] = event.target.value;
+    console.log(userAnswers[2]);
+  }
+  function getQ2Answer(event) 
+  {
+    userAnswers[3] = event.target.value;
+    console.log(userAnswers[3]);
+  }
+  function getQ3Answer(event) 
+  {
+    userAnswers[4] = event.target.value;
+    console.log(userAnswers[4]);
+  }
+  function getQ4Answer(event) 
+  {
+    userAnswers[5] = event.target.value;
+    console.log(userAnswers[5]);
+  }
+
+  function hasWhiteSpace(s) 
+  {
+    return s.indexOf(' ') >= 0;
+  }
+  function validateForm(){
+    for(var i = 0; i < userAnswers.length; i++){
+      console.log(userAnswers[i]);
+      if(userAnswers[i] == null || userAnswers[i].length < 1 || hasWhiteSpace(userAnswers[i])){
+        alert("Whoah there! You did not answer all the questions");
+        return false;
+      } 
+    }
+    
+    if(confirm("Are you sure these are your answers?")){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+</script>
+</html>

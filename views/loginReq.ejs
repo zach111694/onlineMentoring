@@ -15,7 +15,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="css/index.css" rel="stylesheet">
+    <link href="css/signin.css" rel="stylesheet">
 
   </head>
 
@@ -24,9 +24,9 @@
     <div class="container">
 
       <form id="logInForm" action="/login" method="post" class="form-signin">
-        <h2 class="form-signin-heading text-center">Welcome to Molloy Online Mentoring!</h2>
-        <label class="sr-only">Username</label>
-        <input type="text" name="username" class="form-control" placeholder="Username" required autofocus>
+        <h2 class="form-signin-heading text-center">You must be logged in to continue</h2>
+        <label for="inputEmail" class="sr-only">Username</label>
+        <input type="text" name="username" id="inputEmail" class="form-control" placeholder="Username" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
 
@@ -39,6 +39,3 @@
 
   </body>
 </html>
-
-
-
