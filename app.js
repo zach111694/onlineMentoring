@@ -4,6 +4,13 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var flash = require('connect-flash');
+var bcrypt = require('bcryptjs');
+var sqlite3 = require('sqlite3');
+var db = new sqlite3.Database('onlineMentoring.db');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -17,13 +24,61 @@ app.set('view engine', 'ejs');
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+
+app.use(session({
+  secret: 'learn node',
+  resave: true,
+  saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+
+passport.use('local',new LocalStrategy(
+  function(username, password, done) {
+
+    db.get('SELECT username, password FROM Users WHERE username = ?', username, function(err, row) {
+
+      if(err) {
+        return done(err);
+      }
+      
+      if (!row){
+        return done(null, false, { message: 'Incorrect username'});
+      }
+
+      bcrypt.compare(password,row.password,function(err,result){
+      // RETURNS TRUE UPON MATCH OF PASSWORD AND MATCH
+      
+        if(!result){
+          return done(null,false, {message: 'Incorrect password'});
+        }
+
+        return done(null, row);
+      });
+    });
+}));
+
+passport.serializeUser(function(user, done) {
+  return done(null, user.username);
+});
+
+passport.deserializeUser(function(username, done) {
+  db.get('SELECT username FROM users WHERE username = ?', username, function(err, row) {
+    if (!row) return done(null, false);
+    console.log(row.username);
+    return done(null, row.username);
+  });
+});
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

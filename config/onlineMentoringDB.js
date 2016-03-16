@@ -1,6 +1,7 @@
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database('onlineMentoring.db');
 
+var express = require('express');
 // CHANGE DIRECTORY TO /external AND TYPE 'node OnlineMentoringDB.js' to test functions below.
 // 
 //
@@ -22,21 +23,8 @@ module.exports = {
 		});
 	},
 
-	// registerUser2: function(formData,role){
-	// 	db.serialize(function(){
-	// 		db.run("INSERT INTO " + role + " (`username`,`role`,`Q1`,`Q2`,`Q3`,`Q4`) VALUES ($username,$role,$q1,$q2,$q3,$q4)", {
-	// 			$username: formData.username,
-	// 			$role: formData.role,
-	// 			$q1: formData.Q1,
-	// 			$q2: formData.Q2,	
-	// 			$q3: formData.Q3,
-	// 			$q4: formData.Q4
-	// 		});
-	// 	});
-	// },
-
-	queryUsers: function(cb){
-		db.all("SELECT * FROM Users", function(err,rows){
+	retrieveUserData: function(username,cb){
+		db.get("SELECT first_name,last_name FROM Users WHERE username = ?",username, function(err,rows){
 			if(err){
 				return cb(err);
 			}
@@ -65,27 +53,4 @@ module.exports = {
 
 // function getDb(cb) {
 // 	cb(null, new sqlite3.Database('onlineMentoring.db'));
-// }
-
-
-// module.exports = {
-
-// 	getAllTest: function(cb) {
-// 		getDb(function(err, db) {
-// 			if(err) {
-// 				return cb(err);
-// 			}
-
-// 			db.all("SELECT * FROM Mentors", function(err,row){
-// 				if(err){
-// 					db.close()
-// 					return cb(err);
-// 				}
-				
-// 				return cb(null, row);
-// 			});
-			
-// 		});
-// 	}
-
 // }

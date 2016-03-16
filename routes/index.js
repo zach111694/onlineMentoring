@@ -1,25 +1,31 @@
 var express = require('express');
 var router = express.Router();
 var fs = require('fs');
-var omDB = require('../external/onlineMentoringDB');
+var omDB = require('../config/onlineMentoringDB');
 var bcrypt = require('bcryptjs');
+var passport = require('passport')
+  , LocalStrategy = require('passport-local').Strategy;
 
-router.get('/', function (req, res) {
+
+router.get('/', checkIndex,function (req, res) {
 	
     res.render('index', {title: 'Online Mentoring'});
 
 });
 
-router.post('/login',function(req,res){
-	omDB.queryUsers(function(err,res){
-		bcrypt.compare('ihatestevejobs',res[0].password,function(err,result){
-			// RETURNS TRUE UPON MATCH OF PASSWORD AND MATCH
-			console.log(result);
-		});
-	});
-
-	res.send(req.body);
+router.get('/about',loggedIn,function(req,res){
+	res.render('about',{title: 'About'});
 });
+
+router.get('/contact',loggedIn,function(req,res){
+	res.render('contact',{title: 'Contact'});
+});
+
+router.post('/login',
+  passport.authenticate('local', { successRedirect: '/profile',
+                                   failureRedirect: '/',
+                                   failureFlash: true })
+);
 
 router.post('/signup',function(req,res){
 	var formData = req.body;
@@ -35,20 +41,46 @@ router.post('/signup',function(req,res){
 
 });
 
-router.get('/questionnaire',function (req, res) {
+router.get('/questionnaire',loggedIn,function (req, res) {
 	fs.readFile("data/questions.json", "utf8", function(error, text) {
   		if (error)
     		throw error;
 
     	var questionsData = JSON.parse(text);
 
-    	// omDB.doQuery(function(err,res){
-    	// 	console.log(res);
-    	// });
-
     	res.render('questionnaire', {title: 'Online Mentoring', questionsData: questionsData});
 	});
 });
+
+
+router.get('/login',function(req,res){
+	res.render('loginReq',{title:'Log In Required'})
+});
+
+router.get('/logout', function(req,res){
+	req.logout();
+	res.redirect('/');
+});
+
+
+
+router.get('/profile',loggedIn,function(req,res){
+
+	
+
+	omDB.retrieveUserData(req.user,function(err,res){
+		console.log(res.first_name);
+
+	});
+
+	res.render('profile',{title: 'Online Mentoring', user: req.user});
+});
+
+
+router.get('/pair',loggedIn, function(req,res){
+	res.render('pair',{title:'Pair', user: req.user});
+});
+
 
 
 router.post('/questionnaire',function(req, res) {
@@ -68,18 +100,21 @@ router.post('/questionnaire',function(req, res) {
 
 });
 
-router.get('/profile',function(req,res){
+function checkIndex(req,res,next){
+	if(req.user){
+		res.redirect('/profile');
+	} else {
+		next();
+	}
+}
 
-	res.render('profile',{title: 'Profile'});
-});
+function loggedIn(req,res,next){
 
-
-router.get('/pair',function(req,res){
-	res.render('pair',{title:'Pair'});
-});
-
-router.get('/pair',function(req,res){
-	res.render('pair',{title:'Pair'});
-});
+	if(req.user){
+		next();
+	} else {
+		res.redirect('/login');
+	}
+}
 
 module.exports = router;
