@@ -13,6 +13,12 @@ router.get('/', checkIndex,function (req, res) {
 
 });
 
+router.get('/profile', loggedIn, function(req, res){
+	omDB.retrieveUserData(req.user,function(err,usrData){
+		res.render('profile',{title: 'Profile', user: usrData});
+	});
+});
+
 router.get('/about',loggedIn,function(req,res){
 	res.render('about',{title: 'About'});
 });
@@ -90,7 +96,7 @@ router.post('/questionnaire',function(req, res) {
 function checkIndex(req,res,next){
 	if(req.user){
 		omDB.retrieveUserData(req.user,function(err,usrData){
-		res.render('profile',{title: 'Online Mentoring', user: usrData});
+		res.render('home',{title: 'Online Mentoring', user: usrData});
 	});
 	} else {
 		next();
