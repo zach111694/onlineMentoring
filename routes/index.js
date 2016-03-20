@@ -22,7 +22,7 @@ router.get('/contact',loggedIn,function(req,res){
 });
 
 router.post('/login',
-  passport.authenticate('local', { successRedirect: '/profile',
+  passport.authenticate('local', { successRedirect: '/',
                                    failureRedirect: '/',
                                    failureFlash: true })
 );
@@ -38,7 +38,7 @@ router.post('/signup',function(req,res){
 	});
 
 	res.send(req.body);
-
+ 
 });
 
 router.get('/questionnaire',loggedIn,function (req, res) {
@@ -64,18 +64,10 @@ router.get('/logout', function(req,res){
 
 
 
-router.get('/profile',loggedIn,function(req,res){
-
-	omDB.retrieveUserData(req.user,function(err,usrData){
-		res.render('profile',{title: 'Online Mentoring', user: usrData});
-	});
-});
-
 
 router.get('/pair',loggedIn, function(req,res){
 	res.render('pair',{title:'Pair', user: req.user});
 });
-
 
 
 router.post('/questionnaire',function(req, res) {
@@ -97,7 +89,9 @@ router.post('/questionnaire',function(req, res) {
 
 function checkIndex(req,res,next){
 	if(req.user){
-		res.redirect('/profile');
+		omDB.retrieveUserData(req.user,function(err,usrData){
+		res.render('profile',{title: 'Online Mentoring', user: usrData});
+	});
 	} else {
 		next();
 	}
