@@ -8,9 +8,7 @@ var passport = require('passport')
 
 
 router.get('/', checkIndex,function (req, res) {
-	
     res.render('index', {title: 'Online Mentoring'});
-
 });
 
 router.get('/profile', loggedIn, function(req, res){
@@ -33,13 +31,13 @@ router.post('/login',
                                    failureFlash: true })
 );
 
-router.post('/signup',function(req,res){
-	var formData = req.body;
+router.post('/register',function(req,res){
+	var registerForm = req.body;
 
 	bcrypt.genSalt(10,function(err,salt){
-		bcrypt.hash(formData.password,salt,function(err,hash){
-			formData.password = hash;
-			omDB.registerUser(formData);
+		bcrypt.hash(registerForm.password,salt,function(err,hash){
+			registerForm.password = hash;
+			omDB.registerUser(registerForm);
 		});
 	});
 
