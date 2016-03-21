@@ -52,14 +52,14 @@ passport.use('local',new LocalStrategy(
       }
       
       if (!row){
-        return done(null, false, { message: 'Incorrect username'});
+        return done(null, false, { message: '*User does not exist'});
       }
 
       bcrypt.compare(password,row.password,function(err,result){
       // RETURNS TRUE UPON MATCH OF PASSWORD AND MATCH
       
         if(!result){
-          return done(null,false, {message: 'Incorrect password'});
+          return done(null,false, {message: '*Password is incorrect'});
         }
 
         return done(null, row);

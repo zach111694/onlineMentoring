@@ -26,14 +26,21 @@ module.exports = {
 		});
 	},
 
-	registerUser: function(registerData){
+	registerUser: function(registerData,cb){
+
 		db.run("INSERT INTO Users (`username`,`password`,`first_name`,`last_name`) VALUES ($username,$password,$first_name,$last_name)", {
 			$username: registerData.username,
 			$password: registerData.password,
 			$first_name: registerData.firstName,
 			$last_name: registerData.lastName
+		},function(err){
+
+			if(err){
+				return cb(err);
+			}
+
+			return cb(null,registerData.username,registerData.password);
 		});
-		
 	}
 
 }

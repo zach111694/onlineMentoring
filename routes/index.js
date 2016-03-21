@@ -8,7 +8,11 @@ var passport = require('passport')
 
 
 router.get('/', checkIndex,function (req, res) {
-    res.render('index', {title: 'Online Mentoring'});
+	var flashErr = req.flash().error;
+	var regFlash = req.session["successRegister"];
+	req.session["successRegister"] = null;
+
+    res.render('index', {title: 'Online Mentoring', flash: flashErr, regFlash: regFlash});
 });
 
 router.get('/profile', loggedIn, function(req, res){
@@ -31,18 +35,23 @@ router.post('/login',
                                    failureFlash: true })
 );
 
-router.post('/register',function(req,res){
+router.post('/register',function(req,res,next){
 	var registerForm = req.body;
 
 	bcrypt.genSalt(10,function(err,salt){
 		bcrypt.hash(registerForm.password,salt,function(err,hash){
 			registerForm.password = hash;
-			omDB.registerUser(registerForm);
+
+			omDB.registerUser(registerForm,function(err,username,password){
+				if(err) {
+					res.redirect('/');
+				} else {
+					req.session["successRegister"] = "Account Created!";
+					res.redirect('/');
+				}
+			});
 		});
 	});
-
-	res.send(req.body);
- 
 });
 
 router.get('/questionnaire',loggedIn,function (req, res) {
@@ -65,8 +74,6 @@ router.get('/logout', function(req,res){
 	req.logout();
 	res.redirect('/');
 });
-
-
 
 
 router.get('/pair',loggedIn, function(req,res){
@@ -92,10 +99,11 @@ router.post('/questionnaire',function(req, res) {
 });
 
 function checkIndex(req,res,next){
+
 	if(req.user){
 		omDB.retrieveUserData(req.user,function(err,usrData){
 		res.render('home',{title: 'Online Mentoring', user: usrData});
-	});
+		});
 	} else {
 		next();
 	}

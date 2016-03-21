@@ -16,7 +16,6 @@
 
     <!-- Custom styles for this template -->
     <link href="css/index.css" rel="stylesheet">
-    <script src="js/confirmPassword.js"></script>
 
   </head>
 
@@ -28,12 +27,15 @@
       <!-- Log In Form -->  
       <form id="logInForm" action="/login" method="post" class="form-signin">
         <h2 class="form-signin-heading text-center">Welcome to Molloy Online Mentoring!</h2>
+        <h3 class="text-center" style="color:#333"><%= regFlash %></h3>
         <label class="sr-only">Username</label>
         <input type="text" name="username" class="form-control" placeholder="Username" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
 
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <br>
+        <p class="text-center" style="color:red"><%= flash %></p>
       </form>
 
       <!-- Registration Modal Button -->
