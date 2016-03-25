@@ -103,7 +103,6 @@ function checkIndex(req,res,next){
 	if(req.user){
 		
 		omDB.retrieveUserData(req.user,function(err,usrData){
-			var profileStatus = "";
 
 			res.render('home',{
 				title: 'Online Mentoring', 

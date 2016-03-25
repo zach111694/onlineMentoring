@@ -11,7 +11,7 @@ module.exports = {
 
 			cb(null,rows);
 		});
-	},
+	},		
 
 	registerUser: function(registerData,cb){
 
@@ -30,7 +30,7 @@ module.exports = {
 	},
 
 	getSurvey: function(cb){
-		db.all("SELECT * FROM Questionnaire", function(err,rows){
+		db.all("SELECT * FROM Survey", function(err,rows){
 			if(err){
 				return cb(err);
 			}
