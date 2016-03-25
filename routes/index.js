@@ -6,8 +6,11 @@ var bcrypt = require('bcryptjs');
 var passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy;
 
+var db = require('../config/onlineMentoringDB');
 
 router.get('/', checkIndex,function (req, res) {
+	res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+
 	var flashErr = req.flash().error;
 	var regFlash = req.session["successRegister"];
 	req.session["successRegister"] = null;
@@ -16,16 +19,20 @@ router.get('/', checkIndex,function (req, res) {
 });
 
 router.get('/profile', loggedIn, function(req, res){
+	res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+
 	omDB.retrieveUserData(req.user,function(err,usrData){
 		res.render('profile',{title: 'Profile', user: usrData});
 	});
 });
 
 router.get('/about',loggedIn,function(req,res){
+	res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
 	res.render('about',{title: 'About'});
 });
 
 router.get('/contact',loggedIn,function(req,res){
+	res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
 	res.render('contact',{title: 'Contact'});
 });
 
@@ -54,17 +61,25 @@ router.post('/register',function(req,res,next){
 	});
 });
 
-router.get('/questionnaire',loggedIn,function (req, res) {
-	fs.readFile("data/questions.json", "utf8", function(error, text) {
-  		if (error)
-    		throw error;
+router.get('/survey',loggedIn,surveyTaken,function (req, res) {
+		
+		
+    	omDB.getSurvey(function(err,questionsData){
 
-    	var questionsData = JSON.parse(text);
-
-    	res.render('questionnaire', {title: 'Online Mentoring', questionsData: questionsData});
-	});
+    		res.render('survey', {title: 'Survey', questions: questionsData});
+    	});
 });
 
+router.post('/survey',function(req, res) {
+
+	var formData = req.body;
+
+	omDB.submitSurvey(req.user,formData,function(err){
+		console.log(err);
+	});
+
+	res.redirect('/');
+});
 
 router.get('/login',function(req,res){
 	res.render('loginReq',{title:'Log In Required'})
@@ -72,6 +87,7 @@ router.get('/login',function(req,res){
 
 router.get('/logout', function(req,res){
 	req.logout();
+
 	res.redirect('/');
 });
 
@@ -81,32 +97,32 @@ router.get('/pair',loggedIn, function(req,res){
 });
 
 
-router.post('/questionnaire',function(req, res) {
-
-	var formData = req.body;
-	var role = "";
-
-	if(formData.role == 'Mentor'){
-		role = "Mentors";
-	} else if(formData.role == 'Mentee'){
-		role = "Mentees";
-	}
-
-	omDB.registerUser(formData,role);
-
-	res.send(formData);
-
-});
 
 function checkIndex(req,res,next){
 
 	if(req.user){
+		
 		omDB.retrieveUserData(req.user,function(err,usrData){
-		res.render('home',{title: 'Online Mentoring', user: usrData});
+			var profileStatus = "";
+
+			res.render('home',{
+				title: 'Online Mentoring', 
+				user: usrData
+			});
 		});
 	} else {
 		next();
 	}
+}
+
+function surveyTaken(req,res,next){
+	omDB.retrieveUserData(req.user,function(err,usrData){
+		if(usrData.survey == "yes"){
+			res.redirect('/');
+		} else {
+			next();
+		}
+	});
 }
 
 function loggedIn(req,res,next){

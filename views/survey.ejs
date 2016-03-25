@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<%- include headIncludes.ejs %>
+
+<body>
+
+<div id="wrapper">
+
+  <%- include sidebarInclude.ejs %>
+
+  <div id="page-content-wrapper">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-12">
+          <div align="center">
+
+            <h1><%= title %></h1>
+            <br><br>
+
+            <form id="form" action="/survey" method="post">
+
+              <strong><p>Which role would you like to take?</p></strong>
+
+              <select name="role" id="dropDown">
+                <option value="Mentor" selected>Mentor</option>
+                <option value="Mentee">Mentee</option>
+              </select>
+              <br>
+
+              <%for(q in questions){%>
+
+                <br>
+                <label>
+                  <strong>
+                    <%= questions[q].qNum %>. <%= questions[q].question %>
+                  </strong>
+                </label>
+                <br>
+                
+                <fieldset id=<%= "Q" + questions[q].qNum %> >
+                  <% for(a in questions[q].answers){ %>
+                    <input type="radio"  name =<%= "Q" + questions[q].qNum %> value=<%= questions[q].answers[a] %> required>
+                    <%= questions[q].answers[a] %>
+                  <% } %>
+                </fieldset>
+
+              <%}%>
+              <br>
+              <button class="btn btn-sm btn-primary" type="submit">Submit</button>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include jsIncludes.ejs %>
+</body>
+
+
+</html>

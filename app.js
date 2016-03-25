@@ -13,7 +13,6 @@ var sqlite3 = require('sqlite3');
 var db = new sqlite3.Database('onlineMentoring.db');
 
 var routes = require('./routes/index');
-// var users = require('./routes/users');
 
 var app = express();
 
@@ -40,7 +39,6 @@ app.use(flash());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-// app.use('/users', users);
 
 passport.use('local',new LocalStrategy(
   function(username, password, done) {
