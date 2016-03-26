@@ -1,15 +1,6 @@
-var omDB = require('./onlineMentoringDB');
+var omDB = require('./onlineMentoringDB.js');
 
 var MaxAlgorithm = module.exports = {};
-// var mentors = { zyuzon: { q1: 'CSC', q2: 'Boxing', q3: 'Hearthstone', q4: 'Thai' },
-//   cosias: { q1: 'MAT', q2: 'Basketball', q3: 'Skyrim', q4: 'Japanese' },
-//   jschanker: { q1: 'CSC', q2: 'Baseball', q3: 'WoW', q4: 'Italian' },
-//   mdarnell: { q1: 'MAT', q2: 'Football', q3: 'Skyrim', q4: 'Chinese' } };
-
-// var mentees = { hstarkie: { q1: 'BUS', q2: 'Football', q3: 'WoW', q4: 'Italian' },
-//   rhuang: { q1: 'MUS', q2: 'Baseball', q3: 'LoL', q4: 'Chinese' },
-//   zsalvacion: { q1: 'MAT', q2: 'Baseball', q3: 'LoL', q4: 'Japanese' },
-//   hfrawley: { q1: 'MAT', q2: 'Football', q3: 'Hearthstone', q4: 'Japanese' } };
 
 MaxAlgorithm.maxFunction = function(mentorsObj,menteesObj){
     d={};
@@ -66,10 +57,11 @@ MaxAlgorithm.maxFunction = function(mentorsObj,menteesObj){
     return(d[mentors][mentees].choices);
 };
 
-// var test = MaxAlgorithm.maxFunction(mentors,mentees);
-// console.log(test);
 
-omDB.getMentorsMentees(function(err,mentors,mentees){
+var minutes = 5, the_interval = minutes * 60 * 1000;
+setInterval(function() {
+  console.log("Running pair algorithm");
+  omDB.getMentorsMentees(function(err,mentors,mentees){
     var pairs = MaxAlgorithm.maxFunction(mentors,mentees);
     
     omDB.setPairs(pairs,function(err){
@@ -78,3 +70,6 @@ omDB.getMentorsMentees(function(err,mentors,mentees){
         }
     });
 });
+}, the_interval);
+
+

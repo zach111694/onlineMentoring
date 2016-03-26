@@ -1,6 +1,6 @@
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database('onlineMentoring.db');
-
+	
 module.exports = {
 
 	getUserData: function(username,cb){
