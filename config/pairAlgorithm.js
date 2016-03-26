@@ -1,3 +1,5 @@
+var omDB = require('./onlineMentoringDB');
+
 var MaxAlgorithm = module.exports = {};
 var mentors = { zyuzon: { q1: 'CSC', q2: 'Boxing', q3: 'Hearthstone', q4: 'Thai' },
   cosias: { q1: 'MAT', q2: 'Basketball', q3: 'Skyrim', q4: 'Japanese' },
@@ -60,10 +62,17 @@ MaxAlgorithm.maxFunction = function(mentorsObj,menteesObj){
         }
     }
     maxSatisfaction(mentors,mentees);
-    console.log(d[mentors][mentees].choices);
+
+    return(d[mentors][mentees].choices);
 };
 
-MaxAlgorithm.maxFunction(mentors,mentees);
+// var test = MaxAlgorithm.maxFunction(mentors,mentees);
+// console.log(test);
+
+omDB.getMentorsMentees(function(err,mentors,mentees){
+    console.log(mentors);
+    console.log(mentees);
+});
 
 /*test code
 function s(mentorsObj,menteesObj){

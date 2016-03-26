@@ -1,16 +1,6 @@
-var omDB = require('../external/onlineMentoringDB');
+var omDB = require('../config/onlineMentoringDB');
 var usersObject = {};
 // steve is using arrays to hold data 
-
-omDB.doQuery(function(err,res){
-	for(var i = 0; i < res.length;i++){
-		var usrObj = res[i];
-
-		createObject(usrObj);
-	}
-
-	console.log(usersObject);
-},"Mentees");
 
 function createObject(queryObject)
 {

@@ -3,7 +3,7 @@ var db = new sqlite3.Database('onlineMentoring.db');
 
 module.exports = {
 
-	retrieveUserData: function(username,cb){
+	getUserData: function(username,cb){
 		db.get("SELECT first_name,last_name,survey,paired,score FROM Users WHERE username = ?",username, function(err,rows){
 			if(err){
 				return cb(err);
@@ -72,6 +72,49 @@ module.exports = {
 		});
 
 		db.run("UPDATE Users SET `survey` = 'yes' WHERE username = ?",username);
+	},
+
+	getMentorsMentees: function(cb){
+		db.all("SELECT * FROM Mentors",function(err,mentors){
+			if(err){
+				return cb(err);
+			}
+
+			db.all("SELECT * FROM Mentees",function(err,mentees){
+				if(err){
+					return cb(err);
+				}
+
+				var mentorsObject = {};
+
+				for(var i in mentors){
+					var user = mentors[i];
+
+					mentorsObject[user.username] = {
+						a1: user.answer1,
+						a2: user.answer2,
+						a3: user.answer3,
+						a4: user.answer4
+					};
+				}
+
+				var menteesObject = {};
+
+				for(var j in mentees){
+					var user = mentees[j];
+
+					menteesObject[user.username] = {
+						a1: user.answer1,
+						a2: user.answer2,
+						a3: user.answer3,
+						a4: user.answer4
+					};
+				}
+
+				cb(null,mentorsObject,menteesObject);
+
+			});			
+		});	
 	}
 
 }

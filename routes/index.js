@@ -21,7 +21,7 @@ router.get('/', checkIndex,function (req, res) {
 router.get('/profile', loggedIn, function(req, res){
 	res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
 
-	omDB.retrieveUserData(req.user,function(err,usrData){
+	omDB.getUserData(req.user,function(err,usrData){
 		res.render('profile',{title: 'Profile', user: usrData});
 	});
 });
@@ -102,8 +102,9 @@ function checkIndex(req,res,next){
 
 	if(req.user){
 		
-		omDB.retrieveUserData(req.user,function(err,usrData){
+		omDB.getUserData(req.user,function(err,usrData){
 
+			console.log(usrData.paired);	
 			res.render('home',{
 				title: 'Online Mentoring', 
 				user: usrData
@@ -115,7 +116,7 @@ function checkIndex(req,res,next){
 }
 
 function surveyTaken(req,res,next){
-	omDB.retrieveUserData(req.user,function(err,usrData){
+	omDB.getUserData(req.user,function(err,usrData){
 		if(usrData.survey == "yes"){
 			res.redirect('/');
 		} else {
