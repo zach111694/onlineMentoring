@@ -115,6 +115,23 @@ module.exports = {
 
 			});			
 		});	
+	},
+
+	setPairs: function(pairs,cb){
+
+		var pairedUsers = pairs;
+
+		for(var i in pairedUsers){
+			var pairObj = pairedUsers[i];
+
+			var mentor = pairObj.mentor;
+			var mentee = pairObj.mentee;
+
+			db.run("UPDATE Users SET `paired` = ? WHERE username = ?",mentee,mentor);
+			db.run("UPDATE Users SET `paired` = ? WHERE username = ?",mentor,mentee);
+		}
+
+		cb(null);
 	}
 
 }
