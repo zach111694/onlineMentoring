@@ -77,6 +77,4 @@ omDB.getMentorsMentees(function(err,mentors,mentees){
             console.log(err);
         }
     });
-
-
 });
