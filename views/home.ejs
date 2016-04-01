@@ -18,7 +18,7 @@
                         <br>
                         
                         <% if(user.survey == "no") {%>
-                            <h4>It looks like you haven't built your profile. Take the survey below in order to get on the pairing queue.</h4>
+                            <h4>It looks like you haven't built your profile. Take the survey below in order to ssget on the pairing queue.</h4>
                             <br>
                             <a class="btn btn-primary" href="/survey" role="button">Survey</a>
                         <% } else { %>
@@ -28,9 +28,6 @@
                                 <h4>A great match has been found!</h4>
                                 <h4>You have been paired with <%= user.paired %> for a score of <%= user.score %></h4>
                                 <br>
-                                <button class="btn btn-md btn-primary" type="submit">Accept Pair</button>
-                                <h5>or</h5>
-                                <button class="btn btn-md btn-primary" type="submit">Wait For Another Pair</button>
                             <%}%>
                         <%}%>
                     </div>

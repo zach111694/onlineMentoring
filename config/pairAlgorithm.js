@@ -13,6 +13,7 @@ MaxAlgorithm.maxFunction = function(mentorsObj,menteesObj){
                 score++;
             }
         }
+
         return score;
     }
     function maxSatisfaction(mentors,mentees){
@@ -33,7 +34,9 @@ MaxAlgorithm.maxFunction = function(mentorsObj,menteesObj){
                     if (!(([copyOfMentorsAfterSelection][copyOfMenteesAfterSelection]) in d)) {
                         maxSatisfaction(copyOfMentorsAfterSelection,copyOfMenteesAfterSelection,d);
                     }
+                    var individualScore = calcScore(mentors[mentor],mentees[mentee]);
                     var score = calcScore(mentors[mentor],mentees[mentee]) + d[copyOfMentorsAfterSelection][copyOfMenteesAfterSelection].score;
+
                     if (score >= maxScoreSoFar){
                         maxScoreSoFar = score;
                         if (! (mentors in d)){
@@ -44,6 +47,7 @@ MaxAlgorithm.maxFunction = function(mentorsObj,menteesObj){
                         var choice = {};
                         choice.mentor = mentors[mentor];
                         choice.mentee = mentees[mentee];
+                        choice.score = individualScore.toString();
                         choiceOfNextLvl = d[copyOfMentorsAfterSelection][copyOfMenteesAfterSelection].choices;
                         choiceOfNextLvl.push(choice);
                         d[mentors][mentees].choices = choiceOfNextLvl;
@@ -57,19 +61,28 @@ MaxAlgorithm.maxFunction = function(mentorsObj,menteesObj){
     return(d[mentors][mentees].choices);
 };
 
-
-var minutes = 5, the_interval = minutes * 60 * 1000;
-setInterval(function() {
-  console.log("Running pair algorithm");
-  omDB.getMentorsMentees(function(err,mentors,mentees){
+omDB.getMentorsMentees(function(err,mentors,mentees){
     var pairs = MaxAlgorithm.maxFunction(mentors,mentees);
-    
-    omDB.setPairs(pairs,function(err){
+    console.log(pairs);
+    omDB.setPossiblePairs(pairs,function(err){
         if(err){
             console.log(err);
         }
     });
 });
-}, the_interval);
+
+// var minutes = 5, the_interval = minutes * 60 * 1000;
+// setInterval(function() {
+//   console.log("Running pair algorithm");
+//   omDB.getMentorsMentees(function(err,mentors,mentees){
+//     var pairs = MaxAlgorithm.maxFunction(mentors,mentees);
+    
+//     omDB.setPairs(pairs,function(err){
+//         if(err){
+//             console.log(err);
+//         }
+//     });
+// });
+// }, the_interval);
 
 

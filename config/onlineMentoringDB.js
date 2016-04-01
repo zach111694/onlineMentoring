@@ -117,21 +117,25 @@ module.exports = {
 		});	
 	},
 
-	setPairs: function(pairs,cb){
+	setPossiblePairs: function(pairs,cb){
 
-		var pairedUsers = pairs;
+		db.serialize(function(){
+			db.run("UPDATE Users SET `paired` = ''");
+			db.run("UPDATE Users SET `score` = '0'")
 
-		for(var i in pairedUsers){
-			var pairObj = pairedUsers[i];
+			var pairedUsers = pairs;
 
-			var mentor = pairObj.mentor;
-			var mentee = pairObj.mentee;
+			for(var i in pairedUsers){
+				var pairObj = pairedUsers[i];
+				var mentor = pairObj.mentor;
+				var mentee = pairObj.mentee;
+				var score = pairObj.score;
 
-			db.run("UPDATE Users SET `paired` = ? WHERE username = ?",mentee,mentor);
-			db.run("UPDATE Users SET `paired` = ? WHERE username = ?",mentor,mentee);
-		}
+				db.run("UPDATE Users SET `paired` = ?, `score` = ? WHERE username = ?",mentee,score,mentor);
+				db.run("UPDATE Users SET `paired` = ?, `score` = ? WHERE username = ?",mentor,score,mentee);
+			}
+		});
 
 		cb(null);
 	}
-
 }

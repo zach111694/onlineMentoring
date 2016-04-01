@@ -3,8 +3,8 @@ body {
   padding-bottom: 40px;
 
   background: url('../images/om-background.jpg') no-repeat center center fixed;
- 
-  background-size: cover;
+  
+  background-size: 100% 100%;
 }
 
 .form-signin {
