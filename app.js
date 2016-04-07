@@ -1,9 +1,12 @@
+// Express //
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+
+// Passport Sessions & Hashing //
 var session = require('express-session');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
@@ -16,6 +19,10 @@ var routes = require('./routes/index');
 
 var app = express();
 
+// Socket IO //
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -26,6 +33,10 @@ app.use(logger('dev'));
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(function(req,res,next){
+  res.io = io;
+  next();
+});
 
 app.use(session({
   secret: 'learn node',
@@ -110,4 +121,4 @@ app.use(function(err, req, res, next) {
 });
 
 
-module.exports = app;
+module.exports = {app:app, server:server};

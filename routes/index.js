@@ -5,8 +5,10 @@ var omDB = require('../config/onlineMentoringDB');
 var bcrypt = require('bcryptjs');
 var passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy;
-
 var db = require('../config/onlineMentoringDB');
+var app = require('express')();
+var http = require('http').Server(app);
+// var io = require('socket.io')(http);
 
 router.get('/', checkIndex,function (req, res) {
 	res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
@@ -16,6 +18,32 @@ router.get('/', checkIndex,function (req, res) {
 	req.session["successRegister"] = null;
 
     res.render('index', {title: 'Online Mentoring', flash: flashErr, regFlash: regFlash});
+});
+
+
+router.get('/messages',loggedIn,function(req,res,next){
+	res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+	// res.io.emit("socketToMe","user");
+	// res.send('respond with a resource');
+
+	res.io.on('connection', function(socket){
+
+		console.log('a user connected');
+
+		socket.on('disconnect',function(){
+			console.log('user disconnected');
+		});
+
+		socket.on('chat message', function(msg){
+			res.io.emit('chat message',msg);
+			console.log('message: ' + msg);
+		});
+	});
+
+
+
+	res.render('messages',{title: 'Chat'});
+	
 });
 
 router.get('/profile', loggedIn, function(req, res){
@@ -94,7 +122,7 @@ router.get('/logout', function(req,res){
 
 router.get('/pair',loggedIn, function(req,res){
 	res.render('pair',{title:'Pair', user: req.user});
-});
+});	
 
 
 
@@ -103,8 +131,7 @@ function checkIndex(req,res,next){
 	if(req.user){
 		
 		omDB.getUserData(req.user,function(err,usrData){
-
-			console.log(usrData.paired);	
+	
 			res.render('home',{
 				title: 'Online Mentoring', 
 				user: usrData

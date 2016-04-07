@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include headIncludes.ejs %>
+
+<body>
+
+    <div id="wrapper">
+
+       <%- include sidebarInclude.ejs %>
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        
+                            <link href="css/chat.css" rel="stylesheet">
+                            <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+                            <style>
+                            * { margin: 0; padding: 0; box-sizing: border-box; }
+                            body { font: 13px Helvetica, Arial; }
+                            form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+                            form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+                            form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+                            #messages { list-style-type: none; margin: 0; padding: 0; }
+                            #messages li { padding: 5px 10px; }
+                            #messages li:nth-child(odd) { background: #eee; }
+                            </style>                                    
+
+        <div class="message-wrap col-lg-8">
+            <div class="msg-wrap">
+<!-- ======================================================================================== -->
+                <div class="alert alert-info msg-date">
+                    <strong>Today</strong>
+                </div>
+<!-- ======================================================================================== -->
+                <div class="media msg">
+                    <a class="pull-left" href="#">
+<!-- ======================================================= -->
+                        <img class="media-object" data-src="holder.js/64x64" alt="64x64" style="width: 32px; height: 32px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAACqUlEQVR4Xu2Y60tiURTFl48STFJMwkQjUTDtixq+Av93P6iBJFTgg1JL8QWBGT4QfDX7gDIyNE3nEBO6D0Rh9+5z9rprr19dTa/XW2KHl4YFYAfwCHAG7HAGgkOQKcAUYAowBZgCO6wAY5AxyBhkDDIGdxgC/M8QY5AxyBhkDDIGGYM7rIAyBgeDAYrFIkajEYxGIwKBAA4PDzckpd+322243W54PJ5P5f6Omh9tqiTAfD5HNpuFVqvFyckJms0m9vf3EY/H1/u9vb0hn89jsVj8kwDfUfNviisJ8PLygru7O4TDYVgsFtDh9Xo9NBrNes9cLgeTybThgKenJ1SrVXGf1WoVDup2u4jFYhiPx1I1P7XVBxcoCVCr1UBfTqcTrVYLe3t7OD8/x/HxsdiOPqNGo9Eo0un02gHkBhJmuVzC7/fj5uYGXq8XZ2dnop5Mzf8iwMPDAxqNBmw2GxwOBx4fHzGdTpFMJkVzNB7UGAmSSqU2RoDmnETQ6XQiOyKRiHCOSk0ZEZQcUKlU8Pz8LA5vNptRr9eFCJQBFHq//szG5eWlGA1ywOnpqQhBapoWPfl+vw+fzweXyyU+U635VRGUBOh0OigUCggGg8IFK/teXV3h/v4ew+Hwj/OQU4gUq/w4ODgQrkkkEmKEVGp+tXm6XkkAOngmk4HBYBAjQA6gEKRmyOL05GnR99vbW9jtdjEGdP319bUIR8oA+pnG5OLiQoghU5OElFlKAtCGr6+vKJfLmEwm64aosd/XbDbbyIBSqSSeNKU+HXzlnFAohKOjI6maMs0rO0B20590n7IDflIzMmdhAfiNEL8R4jdC/EZIJj235R6mAFOAKcAUYApsS6LL9MEUYAowBZgCTAGZ9NyWe5gCTAGmAFOAKbAtiS7TB1Ng1ynwDkxRe58vH3FfAAAAAElFTkSuQmCC">
+                    </a>
+<!-- ======================================================= -->
+                    <div class="media-body">
+<!-- ======================================================= -->
+                        <small class="pull-right time"><i class="fa fa-clock-o"></i> 12:10am</small>
+<!-- ======================================================= -->
+                        <h5 class="media-heading">Naimish Sakhpara</h5>
+<!-- ======================================================= -->
+                        <small class="col-lg-10">Arnab Goswami: "Some people close to Congress Party and close to the government had a #secret #meeting in a farmhouse in Maharashtra in which Anna Hazare send some representatives and they had a meeting in the discussed how to go about this all fast and how eventually this will end."</small>
+                        <ul id="messages"></ul>
+<!-- ======================================================= -->
+                    </div>
+                </div>
+<!-- ======================================================================================== -->
+            </div>
+            <form action="">
+            <div class="send-wrap ">
+                <input id="m" class="form-control send-message" rows="1" placeholder="Write a reply..."></input>
+            </div>
+            </form>
+        </div>
+
+
+                            <script src="/socket.io/socket.io.js"></script>
+                            <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+
+                            <script>
+                            var socket = io();
+                            $('form').submit(function(){
+                                
+                                socket.emit('chat message', $('#m').val());
+                                $('#m').val('');
+                                return false;
+                            });
+                            socket.on('chat message', function(msg){
+                                $('#messages').append($('<li>').text(msg));
+                            });
+                            </script>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <%- include jsIncludes.ejs %>
+    
+</body>
+
+</html>
