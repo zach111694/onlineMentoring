@@ -38,19 +38,19 @@ app.use(function(req,res,next){
   next();
 });
 
-io.on('connection', function(socket){
+// io.on('connection', function(socket){
 
-    console.log('a user connected');
+//     console.log('a user connected');
 
-    socket.on('disconnect',function(){
-      console.log('user disconnected');
-    });
+//     socket.on('disconnect',function(){
+//       console.log('user disconnected');
+//     });
 
-    socket.on('chat message', function(msg){
-      io.emit('chat message',msg);
-      console.log('message: ' + msg);
-    });
-});
+//     socket.on('chat message', function(msg){
+//       io.emit('chat message','test ' + msg);
+//       console.log('message: ' + msg);
+//     });
+// });
 
 app.use(session({
   secret: 'learn node',
@@ -91,6 +91,20 @@ passport.use('local',new LocalStrategy(
 }));
 
 passport.serializeUser(function(user, done) {
+  io.on('connection', function(socket){
+
+    console.log('a user connected');
+
+    socket.on('disconnect',function(){
+      console.log('user disconnected');
+    });
+
+    socket.on('chat message', function(msg){
+      io.emit('chat message',user.username + ': ' + msg);
+      console.log('message: ' + msg);
+    });
+});
+
   return done(null, user.username);
 });
 
