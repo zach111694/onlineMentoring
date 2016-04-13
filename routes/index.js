@@ -8,7 +8,7 @@ var passport = require('passport')
 var db = require('../config/onlineMentoringDB');
 var app = require('express')();
 var http = require('http').Server(app);
-// var io = require('socket.io')(http);
+var io = require('socket.io')(http);
 
 router.get('/', checkIndex,function (req, res) {
 	res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
@@ -23,22 +23,20 @@ router.get('/', checkIndex,function (req, res) {
 
 router.get('/messages',loggedIn,function(req,res,next){
 	res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
-	// res.io.emit("socketToMe","user");
-	// res.send('respond with a resource');
 
-	res.io.on('connection', function(socket){
+	// io.on('connection', function(socket){
 
-		console.log('a user connected');
+	// 	console.log('a user connected');
 
-		socket.on('disconnect',function(){
-			console.log('user disconnected');
-		});
+	// 	socket.on('disconnect',function(){
+	// 		console.log('user disconnected');
+	// 	});
 
-		socket.on('chat message', function(msg){
-			res.io.emit('chat message',msg);
-			console.log('message: ' + msg);
-		});
-	});
+	// 	socket.on('chat message', function(msg){
+	// 		io.emit('chat message',msg);
+	// 		console.log('message: ' + msg);
+	// 	});
+	// });	
 
 
 
