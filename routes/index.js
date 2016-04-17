@@ -48,8 +48,14 @@ router.get('/profile', loggedIn, function(req, res){
 	res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
 
 	omDB.getUserData(req.user,function(err,usrData){
-		res.render('profile',{title: 'Profile', user: usrData});
+
+		res.render('profile',{title: 'Profile', user: usrData, username: req.user});
 	});
+});
+
+router.post('/createSurvey',function(req,res){
+	var data = req.body;
+	omDB.insertSurveyData(data);
 });
 
 router.get('/about',loggedIn,function(req,res){
@@ -121,6 +127,11 @@ router.get('/logout', function(req,res){
 router.get('/pair',loggedIn, function(req,res){
 	res.render('pair',{title:'Pair', user: req.user});
 });	
+
+// router.get('/createSurvey',loggedIn,function(req,res){
+
+// 	res.render('createSurvey',{title:'Create Survey',user:req.user});
+// });
 
 
 

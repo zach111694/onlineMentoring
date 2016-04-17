@@ -25,5 +25,15 @@
                 <li>
                     <a href="/logout">Log Out</a>
                 </li>
+
+                <% if(user.username == "admin"){ %>
+                <% console.log("yo"); %>
+                    <li>
+                        <a href="/createSurvey">Create Survey</a>
+                    </li>
+                <% } %>
+                
+
+
             </ul>
         </div>

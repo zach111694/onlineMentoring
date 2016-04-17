@@ -29,6 +29,16 @@ module.exports = {
 		});
 	},
 
+	insertSurveyData:function(data){
+		db.run("INSERT INTO Survey (`question`,`answer1`,`answer2`,`answer3`,`answer4`) VALUES ($question,$answer1,$answer2,$answer3,$answer4)", {
+			$question: data.questionInput,
+			$answer1: data.answerCh1,
+			$answer2: data.answerCh2,
+			$answer3: data.answerCh3,
+			$answer4: data.answerCh4
+		});
+	},
+
 	getSurvey: function(cb){
 		db.all("SELECT * FROM Survey", function(err,rows){
 			if(err){

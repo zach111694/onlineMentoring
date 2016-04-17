@@ -14,7 +14,47 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        
+                        <% if(username == "admin"){ %>
+
+                            <form id="createSurveyForm" action="/createSurvey" method="post">
+
+                            <% var numOfQ = 4; %>
+
+                            <% for(var i = 0; i < numOfQ; i++){ %>
+                                <!-- Question Input -->
+                                <div class="form-group">
+                                  <label for="questionInput"><h2>Question: <%= i + 1 %></h2></label>
+                                  <input type="text" class="form-control" name="questionInput">
+                                </div>
+
+                                <!-- Answer Choice Input -->
+
+                                <div class="form-group">
+
+                                  <!-- first choice -->
+                                  <label for="answerCh1">Choice 1:</label>
+                                  <input type="text" class="form-control" name="answerCh1">
+                              
+                                  <!-- second choice -->
+                                
+                                  <label for="answerCh2">Choice 2:</label>
+                                  <input type="text" class="form-control" name="answerCh2">
+                               
+                                  <!-- third choice -->
+                                
+                                  <label for="answerCh3">Choice 3:</label>
+                                  <input type="text" class="form-control" name="answerCh3">
+                              
+                                  <!-- fourth choice -->
+                                
+                                  <label for="answerCh4">Choice 4:</label>
+                                  <input type="text" class="form-control" name="answerCh4">
+                                </div>
+                            <% } %>
+                            <button type ="submit">Submit</button>
+                          </form>
+
+                      <% } %>
                         
                     </div>
                 </div>
