@@ -21,9 +21,10 @@
 
                             <form id="createSurveyForm" action="/createSurvey" method="post">
 
+                                
 
 
-                                <!-- <button type ="submit">Submit</button> -->
+                                <button type ="submit">Submit</button>
                             </form>
 
 
@@ -43,18 +44,60 @@
         var enterButton = document.getElementById('enter-btn');
         enterButton.addEventListener('click',function(){
             numOfQs++
-            var form =  document.getElementById('createSurveyForm');
-
-            var label = document.createElement('label');
-            label.setAttribute('for','question'+numOfQs.toString()+'input');
-            var labelText = document.createTextNode('question ' + numOfQs.toString());
-            label.appendChild(labelText);
-            form.appendChild(label);
-
-            
+            createEntry(numOfQs);
 
         });
 
+        
+        function createEntry(numOfQs){
+            
+
+                /*get form and add div*/
+                var form =  document.getElementById('createSurveyForm');
+                var form_group_div = document.createElement('div');
+                form_group_div.setAttribute('class','form-group');
+                form.appendChild(form_group_div);
+
+                /*create label*/
+                var label = document.createElement('label');
+                label.setAttribute('for','question'+numOfQs.toString()+'input');
+                var labelText = document.createTextNode('Question ' + numOfQs.toString());
+                label.appendChild(labelText);
+                /*form_group_div.appendChild(label);*/
+
+                /*create text field for question input*/
+                var questionTextField = document.createElement('input');
+                questionTextField.setAttribute('type','text');
+                questionTextField.setAttribute('class','form-control');
+                questionTextField.setAttribute('id','question'+ numOfQs.toString()+"input");
+
+                form_group_div.appendChild(label);
+                form_group_div.appendChild(questionTextField);
+                
+
+                for(var j=0;j<4;j++){
+
+                    /*set up label*/
+                    var answerNum = j+1;
+                    var ans_label = document.createElement('label');
+                    ans_label.setAttribute('for','answerCh'+answerNum.toString());
+                    ans_label.setAttribute('class','form-control');
+                    var labelText = document.createTextNode('Answer ' + answerNum.toString());
+                    ans_label.appendChild(labelText);
+
+                    /*set up text field*/
+                    var answerTextField = document.createElement('input');
+                    answerTextField.setAttribute('type','text');
+                    answerTextField.setAttribute('class','form-control');
+                    answerTextField.setAttribute('id','answerCh'+ answerNum.toString()+'input');
+
+
+                    /*append to document*/
+                    form_group_div.appendChild(ans_label);
+                    form_group_div.appendChild(answerTextField);
+
+                }    
+        }
 
     </script>
     
