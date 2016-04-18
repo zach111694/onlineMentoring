@@ -55,7 +55,8 @@ router.get('/profile', loggedIn, function(req, res){
 
 router.post('/createSurvey',function(req,res){
 	var data = req.body;
-	omDB.insertSurveyData(data);
+	/*omDB.insertSurveyData(data);*/
+	res.send(data);
 });
 
 router.get('/about',loggedIn,function(req,res){

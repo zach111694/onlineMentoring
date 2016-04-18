@@ -30,6 +30,8 @@ module.exports = {
 	},
 
 	insertSurveyData:function(data){
+
+		//for each question filled out, loop through
 		db.run("INSERT INTO Survey (`question`,`answer1`,`answer2`,`answer3`,`answer4`) VALUES ($question,$answer1,$answer2,$answer3,$answer4)", {
 			$question: data.questionInput,
 			$answer1: data.answerCh1,
