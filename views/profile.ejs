@@ -19,9 +19,9 @@
                             
                             <button id="enter-btn">Add Question</button>
 
-                            <form id="createSurveyForm" action="/createSurvey" method="post">
+                            <form id="createSurveyForm" action="/createSurvey" method="post" >
 
-                                
+                                <script>var numberOfQuestions=0;</script>  
                                 
 
                                 <button type ="submit">Submit</button>
@@ -39,11 +39,23 @@
     <!-- /#wrapper -->
 
     <%- include jsIncludes.ejs %>
+    <script src="/jquery/jquery.js"></script>
     <script>
         var numOfQ = 0;
+
+        $('#createSurveyForm').submit(function(eventObj){
+               $('<input />').attr('type','hidden')
+               .attr('name','total_num_questions')
+               .attr('value',numOfQ)
+               .appendTo('#createSurveyForm');
+
+        });
+
+        
         var enterButton = document.getElementById('enter-btn');
         enterButton.addEventListener('click',function(){
-            numOfQ++
+            /*alert(numberOfQuestions);*/
+            numOfQ++;
             createEntry(numOfQ);
 
         });
@@ -70,7 +82,7 @@
                 questionTextField.setAttribute('required','');
                 questionTextField.setAttribute('type','text');
                 questionTextField.setAttribute('class','form-control');
-                questionTextField.setAttribute('name','question'+ numOfQ.toString()+"input");
+                questionTextField.setAttribute('name','question'+ numOfQ.toString());
 
                 form_group_div.appendChild(label);
                 form_group_div.appendChild(questionTextField);

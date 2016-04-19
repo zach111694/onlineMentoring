@@ -37,6 +37,8 @@ app.use(function(req,res,next){
   res.io = io;
   next();
 });
+app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist/'));
+
 
 // io.on('connection', function(socket){
 
