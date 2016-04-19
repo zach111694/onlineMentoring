@@ -58,6 +58,12 @@ router.get('/profile', loggedIn, function(req, res){
 router.post('/createSurvey',function(req,res){
 	var data = req.body;
 	/*omDB.insertSurveyData(data);*/
+	/*res.send(data.total_num_questions);*/
+	for(var i=1;i<=data.total_num_questions;i++){
+		/*var qNum = i+=1;*/
+		var currentQuestion = 'question'+ i.toString();
+		console.log(data[currentQuestion]);
+	}
 	res.send(data);
 });
 
