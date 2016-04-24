@@ -29,15 +29,18 @@ module.exports = {
 		});
 	},
 
-	insertSurveyData:function(data){
-
+	insertSurveyData:function(data,num){
+		/*var x = data['question'+num];
+		var y = data['answer1Question'+num];
+		console.log(x);
+		console.log(y);*/
 		//for each question filled out, loop through
 		db.run("INSERT INTO Survey (`question`,`answer1`,`answer2`,`answer3`,`answer4`) VALUES ($question,$answer1,$answer2,$answer3,$answer4)", {
-			$question: data.questionInput,
-			$answer1: data.answerCh1,
-			$answer2: data.answerCh2,
-			$answer3: data.answerCh3,
-			$answer4: data.answerCh4
+			$question: data['question'+num],
+			$answer1: data['answer1Question'+num],
+			$answer2: data['answer2Question'+num],
+			$answer3: data['answer3Question'+num],
+			$answer4: data['answer4Question'+num]
 		});
 	},
 
