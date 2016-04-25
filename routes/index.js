@@ -57,8 +57,7 @@ router.get('/profile', loggedIn, function(req, res){
 
 router.post('/createSurvey',function(req,res){
 	var data = req.body;
-	var num = '1';
-	/*omDB.insertSurveyData(data);*/
+	
 	//res.send(data.total_num_questions);
 	for(var i=1;i<=data.total_num_questions;i++){
 		var currentQuestion = i.toString();
