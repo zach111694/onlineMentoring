@@ -2,13 +2,7 @@
 <html lang="en">
 
 <%- include headIncludes.ejs %>
-<style>
-    body{
-        .entryDiv{
-            background-color:blue;
-        }
-    }
-</style>
+
 
 <body>
 
@@ -28,7 +22,7 @@
                             <button id="enter-btn"class="btn btn-default">Add Question</button>
                             <form id="createSurveyForm" action="/createSurvey" method="post">
                                 <h3>Name of Survey:</h3>
-                                <input type="text" class="form-control"/><br>
+                                <input name="surveyName" type="text" class="form-control"/><br>
 
                                 
 

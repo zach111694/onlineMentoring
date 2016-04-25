@@ -29,13 +29,15 @@ module.exports = {
 		});
 	},
 
-	insertSurveyData:function(data,num){
+	insertSurveyData:function(data,theUser,num){
 		/*var x = data['question'+num];
 		var y = data['answer1Question'+num];
 		console.log(x);
 		console.log(y);*/
 		//for each question filled out, loop through
-		db.run("INSERT INTO Survey (`question`,`answer1`,`answer2`,`answer3`,`answer4`) VALUES ($question,$answer1,$answer2,$answer3,$answer4)", {
+		db.run("INSERT INTO SurveyII (`username`,`survey_title`,`question`,`answer1`,`answer2`,`answer3`,`answer4`) VALUES ($username,$survey_title,$question,$answer1,$answer2,$answer3,$answer4)", {
+			$username: theUser,
+			$survey_title: data['surveyName'],
 			$question: data['question'+num],
 			$answer1: data['answer1Question'+num],
 			$answer2: data['answer2Question'+num],

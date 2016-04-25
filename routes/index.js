@@ -57,14 +57,15 @@ router.get('/profile', loggedIn, function(req, res){
 
 router.post('/createSurvey',function(req,res){
 	var data = req.body;
+	var thisUser = req.user;
+	thisUser.toString();
 	
-	//res.send(data.total_num_questions);
 	for(var i=1;i<=data.total_num_questions;i++){
 		var currentQuestion = i.toString();
-		omDB.insertSurveyData(data,currentQuestion);
+		omDB.insertSurveyData(data,thisUser,currentQuestion);
 		
 	}
-	res.send(data);
+	res.send("THANK YOU!");
 });
 
 router.get('/about',loggedIn,function(req,res){
