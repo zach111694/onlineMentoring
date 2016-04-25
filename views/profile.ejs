@@ -2,6 +2,13 @@
 <html lang="en">
 
 <%- include headIncludes.ejs %>
+<style>
+    body{
+        .entryDiv{
+            background-color:blue;
+        }
+    }
+</style>
 
 <body>
 
@@ -17,15 +24,20 @@
                         <% if(username == "admin"){ %>
 
                             
-                            <button id="enter-btn">Add Question</button>
+                            
+                            <button id="enter-btn"class="btn btn-default">Add Question</button>
+                            <form id="createSurveyForm" action="/createSurvey" method="post">
+                                <h3>Name of Survey:</h3>
+                                <input type="text" class="form-control"/><br>
 
-                            <form id="createSurveyForm" action="/createSurvey" method="post" >
+                                
 
                                 <script>var numberOfQuestions=0;</script>  
                                 
 
-                                <button type ="submit">Submit</button>
+                                
                             </form>
+                            <button type ="submit" form="createSurveyForm" class="btn btn-default">Submit</button>
 
 
                       <% } %>
@@ -64,11 +76,17 @@
         function createEntry(numOfQ){
             
                 /*get form and add div*/
-                var form_group_div = $('<div class=form-group></div>');
+                var form_group_div = $('<div class="form-group"></div>');
+                $(form_group_div).css({
+                    'background-color':'#FFBF00',
+                    'padding':'15px',
+                    'margin-bottom':'50px',
+                    'border-radius':'.5em'
+                });
                 $('#createSurveyForm').append(form_group_div);
 
                 /*create label*/
-                var label = $('<label>Question '+numOfQ.toString()+'</label>')
+                var label = $('<h4><label>Question '+numOfQ.toString()+'</label></h4>')
                 label.attr({
                     'for':'question'+numOfQ.toString()+'input'
                 });
@@ -91,7 +109,9 @@
                     var ans_label = $('<label>Answer '+answerNum.toString()+'</label>');
                     $(ans_label).attr({
                         'for':'answerCh'+answerNum.toString(),
-                        'class':'form-control'
+                    });
+                    $(ans_label).css({
+                        'font-weight':'normal'
                     });
 
                     /*set up text field*/
