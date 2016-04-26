@@ -3,6 +3,19 @@ var db = new sqlite3.Database('onlineMentoring.db');
 	
 module.exports = {
 
+	checkForSurvey:function(username){
+		db.all("SELECT * FROM SurveyII WHERE username = ?",username,function(err,results){
+			if(err){
+				return cb(err);
+			}
+			else{
+				console.log(results);
+			}
+
+			//cb(null,rows);
+		});
+	},
+
 	getUserData: function(username,cb){
 		db.get("SELECT first_name,last_name,survey,paired,score FROM Users WHERE username = ?",username, function(err,rows){
 			if(err){

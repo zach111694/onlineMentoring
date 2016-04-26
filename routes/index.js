@@ -50,6 +50,10 @@ router.get('/profile', loggedIn, function(req, res){
 	res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
 
 	omDB.getUserData(req.user,function(err,usrData){
+		var thisUser = req.user;
+
+		omDB.checkForSurvey(thisUser);
+
 
 		res.render('profile',{title: 'Profile', user: usrData, username: req.user});
 	});
