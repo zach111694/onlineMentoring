@@ -52,17 +52,33 @@ router.get('/profile', loggedIn, function(req, res){
 	omDB.getUserData(req.user,function(err,usrData){
 		var thisUser = req.user;
 
-		omDB.checkForSurvey(thisUser);
+		omDB.getUserSurveyData(thisUser,function(err,data){
 
+			if(err){
+				throw err;
+			}
+			//data is an array of objects with each object being a row in the database
+			var survTitlesArr = [];
+			for(i=0;i<data.length;i++){
+				//survTitlesArr.push(data[i].survey_title);
+				var currentTitle = data[i].survey_title;
+				//if surv title not in arr add it
+				if (!(survTitlesArr.indexOf(currentTitle)>-1)){
+					survTitlesArr.push(currentTitle);
+				}
+			}
+			/*return survTitlesArr;*/
+			res.send(survTitlesArr);
+		});
 
-		res.render('profile',{title: 'Profile', user: usrData, username: req.user});
+		/*res.render('profile',{title: 'Profile', user: usrData, username: req.user});*/
 	});
 });
 
 router.post('/createSurvey',function(req,res){
 	var data = req.body;
 	var thisUser = req.user;
-	thisUser.toString();
+	console.log(thisUser);
 	
 	for(var i=1;i<=data.total_num_questions;i++){
 		var currentQuestion = i.toString();
