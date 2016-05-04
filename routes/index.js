@@ -49,14 +49,21 @@ router.get('/messages',loggedIn,function(req,res,next){
 router.get('/profile', loggedIn, function(req, res){
 	res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
 
-	omDB.getUserData(req.user,function(err,usrData){
-		var thisUser = req.user;
+	// omDB.getUserData(req.user,function(err,usrData){
+	// 	var thisUser = req.user;
 
-		omDB.checkForSurvey(thisUser);
+	// 	omDB.checkForSurvey(thisUser);
 
 
-		res.render('profile',{title: 'Profile', user: usrData, username: req.user});
+	// 	res.render('profile',{title: 'Profile', user: usrData, username: req.user});
+	// });
+	var username = req.user
+	omDB.checkForSurvey(username,function(err,surveys){
+		res.render('profile',{title: 'Profile', surveys: surveys ,username:username});
 	});
+
+	
+
 });
 
 router.post('/createSurvey',function(req,res){

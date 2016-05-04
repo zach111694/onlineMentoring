@@ -3,16 +3,35 @@ var db = new sqlite3.Database('onlineMentoring.db');
 	
 module.exports = {
 
-	checkForSurvey:function(username){
-		db.all("SELECT * FROM SurveyII WHERE username = ?",username,function(err,results){
+	checkForSurvey:function(username,cb){
+		db.all("SELECT * FROM SurveyII WHERE username = ?",username,function(err,rows){
 			if(err){
 				return cb(err);
 			}
-			else{
-				console.log(results);
+			
+
+			var userSurveys = {};
+
+			for(var i in rows){
+
+				var obj = rows[i];
+
+				if(!(obj.survey_title in userSurveys)){
+					userSurveys[obj.survey_title] = [];
+				}
+
+				userSurveys[obj.survey_title].push({
+					question: obj.question,
+					answers: [
+						obj.answer1,
+						obj.answer2,
+						obj.answer3,
+						obj.answer4
+					]
+				});
 			}
 
-			//cb(null,rows);
+			cb(null,userSurveys);
 		});
 	},
 

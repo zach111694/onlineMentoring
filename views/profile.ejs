@@ -35,6 +35,40 @@
 
 
                       <% } %>
+                      <br><br>
+                      <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                      <% surveysArr = Object.keys(surveys) %>
+                      <% for(var s = 0; s < surveysArr.length; s++){ %>
+                      <%    var surveyTitle = surveysArr[s]; %>
+                      <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingTwo">
+                          <h4 class="panel-title">
+                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href=<%= "#" + s.toString()%> aria-expanded="false" aria-controls=<%= s.toString() %>>
+                                <%= surveyTitle %>
+                          </a>
+                      </h4>
+                  </div>
+                  <div id=<%= s.toString() %> class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                      <div class="panel-body">
+                        
+                        <% for(var q in surveys[surveyTitle]){ %>
+                          <% var question = surveys[surveyTitle][q].question; %>
+                            <h4><%= question %></h4>
+                            <% for(var a in surveys[surveyTitle][q].answers){ %>
+                                <% var answer = surveys[surveyTitle][q].answers[a]; %>
+                                <h6><%= answer %></h6>
+                            <% } %>
+                        <% } %>
+
+                    </div>
+                </div>
+            </div>
+                         
+
+                      <% } %>
+                    </div>
+
+
                     </div>
                 </div>
             </div>
